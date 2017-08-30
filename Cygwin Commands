@@ -1,0 +1,26 @@
+Cygwin Commands:
+
+cd /cygdrive/c/Users/"Oscar Rosner"/Desktop/  
+cd "C:\Users\Oscar\Desktop\" //wie in DOS auch möglich
+pwd //current path 
+dir // lists all stuff up
+
+
+//bereits in Desktop
+cd MyFolder/
+
+tar -zcvf newFile ToBeEncrypted  //ToBeEncrypted ist ein Ordner, newFile ist der Name der Datei die daraus erstellt wird
+tar -xvzf newFile //entschlüsselt newFile in die aktuelle Directory
+
+mkdir myFolder  //erstellt Verzeichnis
+cp <filename> <new filename>  //make copy of File
+
+cp -R <directory> <new directory> //make copy of Directory
+
+mv <filename> <new filename> //move or rename File
+
+rm <filename> //remove File
+
+
+
+
