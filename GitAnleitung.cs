@@ -10,6 +10,7 @@ git clone https://github.com/Kexplx/Project1 <!--Erstellt Projekt auf PC mit kop
 
 Git Bash in erzeugtem Verzeichnis öffnen
 
+git init //mach aktuelle Directory zu Git Repository
 git pull <!--Holt sich alle Dateien vom Server, wird am Beginn des Tages gemacht!-->
 git status <!--Info über alle Änderungen!-->
 git add --all <!--Fügt Datei dem projekt hinzu!-->
@@ -20,15 +21,16 @@ git mv oldname newname <!--Datei umbenennen!-->
 git <!--Befehlsübersicht!-->
 
 
-______________________________________
+________________________________________________________________________________________________________
 Branches
 
-git branch Programm-UIChanges //erstellt branch
-git checkout Programm-UIChanges //wechselt in die branch
+git branch //info über alle aktiven Branches, * zeigt die an in der man ist
+git branch refactoring/formatting //erstellt branch
+git checkout refactoring/formatting //wechselt in die branch
 git checkout master //wechselt zum master
-git merge Programm-UIChanges //merged die branch in master stream
-git branch -D Programm-UIChanges //löscht branche
+git merge refactoring/formatting //merged die branch in master stream
+git branch -D refactoring/formatting //löscht branche
 
-git push origin Programm-UIChanges //uploaded die branche auf den github server, davor nur lokal
+git push origin refactoring/formatting //uploaded die branche auf den github server, davor nur lokal
 
 
