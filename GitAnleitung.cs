@@ -19,6 +19,8 @@ git commit -m "added index.html" <!--Übernimmt Änderungen in das Projekt, noch
 git push <!--Lädt Projekt auf den GitHub Server!-->
 git mv oldname newname <!--Datei umbenennen!-->
 git <!--Befehlsübersicht!-->
+git log --all //eigt alle commits an
+
 
 
 ________________________________________________________________________________________________________
