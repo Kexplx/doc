@@ -23,9 +23,6 @@ git push <!--Lädt Projekt auf den GitHub Server!-->
 git mv oldname newname <!--Datei umbenennen!-->
 git <!--Befehlsübersicht!-->
 
-
-
-
 ________________________________________________________________________________________________________
 Branches
 
@@ -37,6 +34,17 @@ git merge refactoring/formatting //merged die branch in master stream
 git branch -D refactoring/formatting //löscht branche
 
 
+________________________________________________________________________________________________________
+Push / Pullen von GitHub
+
 git push origin refactoring/formatting //uploaded die branche auf den github server, davor nur lokal
 
+git pull origin master //updated die aktuelle branch mit der master branch bon github.com
 
+Lokale Repository anlegen und diese in github pushen:
+git init 
+git add .
+git commit -m "First Commit"
+git remote add origin "https://github.com/Kexplx/Vier-Gewinnt.git"
+git remote -v //verifizierung
+git push origin master
