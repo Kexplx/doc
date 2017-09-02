@@ -11,15 +11,18 @@ git clone https://github.com/Kexplx/Project1 <!--Erstellt Projekt auf PC mit kop
 Git Bash in erzeugtem Verzeichnis öffnen
 
 git init //mach aktuelle Directory zu Git Repository
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
 git pull <!--Holt sich alle Dateien vom Server, wird am Beginn des Tages gemacht!-->
 git status <!--Info über alle Änderungen!-->
-git add --all <!--Fügt Datei dem projekt hinzu!-->
+git add .<!--Fügt Datei dem projekt hinzu!-->
 git rm 123.txt <!--löscht eine Datei!-->
 git commit -m "added index.html" <!--Übernimmt Änderungen in das Projekt, noch kein Upload!-->
 git push <!--Lädt Projekt auf den GitHub Server!-->
 git mv oldname newname <!--Datei umbenennen!-->
 git <!--Befehlsübersicht!-->
-git log --all //eigt alle commits an
+
 
 
 
@@ -32,6 +35,7 @@ git checkout refactoring/formatting //wechselt in die branch
 git checkout master //wechselt zum master
 git merge refactoring/formatting //merged die branch in master stream
 git branch -D refactoring/formatting //löscht branche
+
 
 git push origin refactoring/formatting //uploaded die branche auf den github server, davor nur lokal
 
