@@ -21,6 +21,12 @@ mv <filename> <new filename> //move or rename File
 
 rm <filename> //remove File
 
+touch fileName //make new file
+
+vim fileName //open file in vim editor
+
+cat fileName // print file to stdout
+
 
 
 

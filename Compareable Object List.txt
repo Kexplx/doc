@@ -1,0 +1,55 @@
+using System;
+using System.Net.Sockets;
+using System.IO;
+using System.Threading;
+using System.Collections.Generic;
+
+namespace test
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var x = new Person()
+            {
+                Age = 3,
+                Name = "A" 
+            };
+
+            var z = new Person()
+            {
+                Age = 4,
+                Name = "A"
+            };
+
+            var list = new List<Person>()
+            {
+                x,z
+            };
+
+            list.Sort();
+        }
+    }
+
+    internal class Person : IComparable
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
+        int IComparable.CompareTo(object obj)
+        {
+            // return 1 if this belongs ahead of obj, -1 if behind and 0 if equal
+            
+            if(!(obj is Person))
+            {
+                return -1;
+            }
+            var hold = (Person) obj;
+
+            var returned = Name.CompareTo(hold.Name);
+
+            return returned;
+
+        }
+    }
+}

@@ -1,3 +1,7 @@
 HKCU > Software > Microsoft > Windows > CurrentVersion > Explorer > User Shell Folders
 
 %USERPROFILE%\Desktop
+
+
+dotnet core portable apps ausführen:
+dotnet run.dll  //dll in Debug/dotnetapp2.0/..

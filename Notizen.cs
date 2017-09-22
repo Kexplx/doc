@@ -54,14 +54,13 @@ public retardedExcpetion() : base("retardedException gefangen"){}
 /*throw Notation hinter Methoden nicht notwendig, auch catch block 
 bei methodenaufruf*/
 
-Text einlesen
+Text einlesen / schreiben
 
-string[] lines = System.IO.File.ReadAllLines(@"");
+var stream = File.Open("path..");
+var reader = new StreamReader(stream);
+var writer = new StreamWriter(stream);
+writer.close(); //wichtig!!
 
-Schreiben:
- StreamWriter w1 = new StreamWriter(f1);
-            w1.WriteLine("Hello World!!!!");
-            w1.Close();//witchitg!!
 
 
 Delegates && Lambda:
@@ -94,3 +93,14 @@ IEnumerable<string> selectedItems = auswahlListe.Where(x => x == "Oscar").
 												.OrderBy(n => n);
 
 
+
+
+var tuple = GivesTuples();
+
+tuple.item1;
+tuple.item2;
+
+public Tuple<int, int> GivesTuples()
+{
+	Tuple.Create(3,1);
+}

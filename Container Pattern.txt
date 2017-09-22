@@ -1,0 +1,70 @@
+ Das Container Pattern verwendet man, wenn mehrere Klassen das gleiche enthalten, dann baut man ein Interface welches diese gleiche als Properties hat, implementiert das in diesen klassen.
+ Dann kann man eine Funktion die nur dieses ContainerInterface bekommt und jede dieser Klassen mit den jeweils gleichen, vom interface jetzt vorgeschrieben properties befüllen
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            var school = new School();
+            var uni = new University();
+
+            AddStudents(uni);
+            AddStudents(school);
+        }
+
+        //Hier könnte dann auch ein großes switch case stehen etc..
+        //Diese Funktion kann also sowohl School als auch University befüllen, sie bekommt nur einen IStudentContainer
+        public static void AddStudents(IStudentContainer container)
+        {
+            container.StudentCollection
+                     .Add(new Student{ Age = 51 });
+        }
+    }
+    internal interface IStudentContainer
+    {
+        CollectionStudent StudentCollection
+        {
+            get;
+            set;
+        }
+    }
+
+    internal class School  IStudentContainer
+    {
+        public CollectionStudent StudentCollection
+        {
+            get;
+            set;
+        }
+
+        public School()
+        {
+            StudentCollection = new CollectionStudent();
+        }
+    }
+
+    internal class University  IStudentContainer
+    {
+        public CollectionStudent StudentCollection
+        {
+            get;
+            set;
+        }
+
+        public University()
+        {
+            StudentCollection = new CollectionStudent();
+        }
+    }
+
+    internal class Student
+    {
+        public int Age { get; set; }
+
+        public string firstName { get; set; }
+
+        public string lastName { get; set; }
+    }
+
+
+
