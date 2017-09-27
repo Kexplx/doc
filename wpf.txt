@@ -1,0 +1,17 @@
+  var timer = new DispatcherTimer();
+            timer.Tick += ChangeLabel;
+            timer.Interval = TimeSpan.FromSeconds(2);
+
+            timer.Start();
+
+public void ChangeLabel(object sender, EventArgs e)
+{
+	// react to event...
+}
+
+Add icon:
+
+rechtsklick auf project im solution explorer, properties -> ressources. 
+Das gewünschte Icon hinzufügen. (davor auf desktop umbenennen)
+
+Dann unter Properties -> Apllication das Icon unten bei Icon and manifest hinzufügen. (zum ressourcen ordner im project navigieren)

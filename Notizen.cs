@@ -104,3 +104,11 @@ public Tuple<int, int> GivesTuples()
 {
 	Tuple.Create(3,1);
 }
+
+Event handlers:
+event += WhatToDoWithEvent;
+
+public void WhatToDoWithEvent(object sender, EventArgs e)
+{
+	// handle the event...
+}
