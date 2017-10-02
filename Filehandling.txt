@@ -1,0 +1,36 @@
+//Get all subdirectories:
+
+private List<string> _directories;
+
+private void GetDirectories(string currentDirectory)
+        {
+            var directories = Directory.GetDirectories(currentDirectory).ToList();
+
+            foreach (var directory in directories)
+            {
+                GetDirectories(directory);
+            }
+
+            _directories.AddRange(directories);
+        }
+___________________________________________________________________________________
+var direInfo = new DirectoryInfo();
+
+// all files in all subdirectories
+var infos = direInfo.GetFiles("*.tdms",SearchOption.AllDirectories);
+
+// multiple Filters
+ var fileInfos = direInfo.GetFiles("*", SearchOption
+                          .AllDirectories)
+                          .Where(x => x.Name
+                                       .EndsWith(".tdms") || x.Name
+                                                              .EndsWith(".mpk"));
+
+File.Delete(string path);
+File.Create(string path);
+
+File.SetLastWriteTime(string path);
+File.GetLastWriteTime(string path);   
+
+// deletes direcotry and all its contents
+Directory.Delete(string path, true);              

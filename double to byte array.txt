@@ -1,0 +1,64 @@
+//michi
+//set envelope
+            using (var stream = new MemoryStream())
+            {
+                var writer = new BinaryWriter(stream);
+                var count = values.Count();
+
+                writer.Write(count);
+
+                foreach (var value in values)
+                {
+                    writer.Write(value);
+                }
+
+                writer.Flush();
+                stream.Position = 0;
+
+                var buffer = new byte[stream.Length];
+                stream.Read(buffer, 0, buffer.Length);
+                RawEnvelope = buffer;
+            }
+
+
+// get envelope
+            using (var stream = new MemoryStream(RawEnvelope))
+            {
+                var reader = new BinaryReader(stream);
+                var count = reader.ReadInt32();
+
+                var values = new List<double>(count);
+
+                for (int i = 0; i < count; i++)
+                {
+                    var value = reader.ReadDouble();
+
+                    values.Insert(i, value);
+                }
+
+                return values;
+            }
+//me
+
+            var selected = values.Select(x => BitConverter
+            					 						  .GetBytes(x));
+
+                var list = new List<byte>();
+                foreach (var singleByte in selected)
+                {
+                    foreach (var bit in singleByte)
+                    {
+                        list.Add(bit);
+                    }
+                }
+
+            var oBytes = list.ToArray();
+
+			double[] values = new double[RawEnvelope.Length / 8];
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = BitConverter.ToDouble(RawEnvelope, i * 8);
+            }
+
+            return values;

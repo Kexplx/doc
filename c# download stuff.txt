@@ -1,0 +1,8 @@
+Nugets sind kleinere Extensions
+ -System.ValueTuple
+ -log4net
+Installation über Rechtsklick auf 
+
+'C:\Users\Oscar Rosner\Documents\Visual Studio 2017\Projects\Testing\packages'
+
+Rechtklick auf Solution -> Manage Nuget Packages

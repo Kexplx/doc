@@ -112,3 +112,9 @@ public void WhatToDoWithEvent(object sender, EventArgs e)
 {
 	// handle the event...
 }
+
+
+var enumerable = Enumerable.Range(0,1000);
+
+var doubleArray = enumerable.Select(x => (double)x)
+						    .ToArray();

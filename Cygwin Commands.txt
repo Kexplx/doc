@@ -27,6 +27,8 @@ vim fileName //open file in vim editor
 
 cat fileName // print file to stdout
 
+rm -r myDirectory //deletes directory with all its contents
+
 
 
 
