@@ -15,3 +15,7 @@ rechtsklick auf project im solution explorer, properties -> ressources.
 Das gewünschte Icon hinzufügen. (davor auf desktop umbenennen)
 
 Dann unter Properties -> Apllication das Icon unten bei Icon and manifest hinzufügen. (zum ressourcen ordner im project navigieren)
+
+wenn wpf gefickt ist
+=> HorzizonzalAlignment="left"
+=> Margin(x,x,0,0)
