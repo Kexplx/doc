@@ -1,0 +1,23 @@
+// Double[] -> Byte[]
+double[] doubles; 
+var convertedBytes = doubles.Select(x => BitConverter.GetBytes(x));
+var byteList = new List<byte>();
+
+foreach (var singleByte in convertedBytes)
+{
+    foreach (var bit in singleByte)
+    {
+         byteList.Add(bit);
+    }
+}
+
+
+// Byte[] -> Double[]
+
+byte[] bytes;
+double[] values = new double[bytes.Length / 8];
+
+for(int i = 0 ; i < values.Length ; i++)
+{
+    values[i] = BitConverter.ToDouble(bytes, i * 8);
+}
