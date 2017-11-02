@@ -1,4 +1,4 @@
-HKCU > Software > Microsoft > Windows > CurrentVersion > Explorer > User Shell Folders
+csc.exe______C:\Windows\Microsoft.NET\Framework64
 
 %USERPROFILE%\Desktop
 
