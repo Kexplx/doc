@@ -12,6 +12,7 @@ namespace Testing
             var textFileWithBytes = @"C:\Users\Oscar Rosner\Desktop\bytes.txt";
 
             var image = new Bitmap(source);
+            //Set reference
             var imageConverter = new ImageConverter();
 
             //image -> Byte[]
