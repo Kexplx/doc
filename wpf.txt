@@ -1,21 +1,36 @@
-  var timer = new DispatcherTimer();
-            timer.Tick += ChangeLabel;
-            timer.Interval = TimeSpan.FromSeconds(2);
+//WPF
 
-            timer.Start();
+//Buttons
+<Border CornerRadius="1" MouseEnter="Border_MouseEnter" Margin="126,321,0,0" BorderBrush="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeave="Border_MouseLeave" BorderThickness="1" Width="73">
+<Button Click="BtnAddAccount_Click" Foreground="#FF0D2E5F" ToolTip="Adds the account to the collection" Focusable="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFECECEC" BorderBrush="#FFECECEC"/>
+</Border>
 
-public void ChangeLabel(object sender, EventArgs e)
-{
-	// react to event...
-}
+		//In Code
+        private void Border_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Border).BorderBrush = Brushes.DodgerBlue;
+        }
 
-Add icon:
+        private void Border_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Border).BorderBrush = Brushes.Gray;
+        }
 
-rechtsklick auf project im solution explorer, properties -> ressources. 
-Das gewünschte Icon hinzufügen. (davor auf desktop umbenennen)
+//Text boxes
+<Border Background="White" CornerRadius="1" BorderThickness="2" BorderBrush="Gray" Margin="92,59,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" Height="26">
+	<TextBox GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" VerticalAlignment="Center"  HorizontalAlignment="Stretch" MaxLength="13" BorderThickness="0"/>
+</Border>
 
-Dann unter Properties -> Apllication das Icon unten bei Icon and manifest hinzufügen. (zum ressourcen ordner im project navigieren)
+		//In code
+		private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+			((sender as TextBox).Parent as Border).BorderBrush = Brushes.SteelBlue;
+		}
 
-wenn wpf gefickt ist
-=> HorzizonzalAlignment="left"
-=> Margin(x,x,0,0)
+		private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+			((sender as TextBox).Parent as Border).BorderBrush = Brushes.Gray;
+		}
+
+//Add icon to WPF App
+Project -> Properties -> Ressources -> Add Existing File -> Select Icon -> Application Rider on left -> Select Icon
