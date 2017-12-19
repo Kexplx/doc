@@ -1,36 +1,53 @@
-//Get all subdirectories:
+//Writing
+// Creates file if not existing and overrites its content, closes the stream afterwards
+File.WriteAllText(string path,string  text); 
+File.WriteAllBytes(string path, byte[] bytes);
+File.WriteAllLines(string path, string[] lines);
 
-private List<string> _directories;
+//Reading
+string text = File.ReadAllText(string path);
+byte[] bytes = File.ReadAllBytes(string path);
+string[] lines = File.ReadAllLines(string path);
 
+//Read Write using stream
+using(var stream = new Filestream(string path))
+{
+	var reader = new FileReader(stream);
+	var writer = new FileWriter(stream);
+
+	writer.WriteLine("ayyy");
+	string fullContent = reader.ReadToEnd();
+
+	writer.Close(); //Important to save changes, this blocks reader out and closes the entire file. has to be reopend
+}
+
+// File / Directory Infos
+var fileInfo = new FileInfo(string path);
+var directoryInfo = new DirectoryInfo(string path);
+
+var directories = Directory.GetDirectories(path); //only the first level sub directories no further
+
+//to get all directories use:
 private void GetDirectories(string currentDirectory)
-        {
-            var directories = Directory.GetDirectories(currentDirectory).ToList();
+{
+	var directories = Directory.GetDirectories(currentDirectory).ToList();
 
-            foreach (var directory in directories)
-            {
-                GetDirectories(directory);
-            }
+	foreach (var directory in directories)
+	{
+		GetDirectories(directory);
+	}
 
-            _directories.AddRange(directories);
-        }
-___________________________________________________________________________________
-var direInfo = new DirectoryInfo();
+	_directories.AddRange(directories);
+}
 
 // all files in all subdirectories
 var infos = direInfo.GetFiles("*.tdms",SearchOption.AllDirectories);
 
-// multiple Filters
- var fileInfos = direInfo.GetFiles("*", SearchOption
-                          .AllDirectories)
-                          .Where(x => x.Name
-                                       .EndsWith(".tdms") || x.Name
-                                                              .EndsWith(".mpk"));
+var directories = new string[] { @"C:\Users\rosnero\Desktop\1", @"C:\Users\rosnero\Desktop\2" };
 
-File.Delete(string path);
-File.Create(string path);
+var files = directories.Select(x => new DirectoryInfo(x))
+                       .SelectMany(u => u.GetFiles("*.txt")
+                       .ToArray());
 
-File.SetLastWriteTime(string path);
-File.GetLastWriteTime(string path);   
-
-// deletes direcotry and all its contents
-Directory.Delete(string path, true);              
+//Size of file
+var lengthInBytes = new FileInfo(string path).Length;
