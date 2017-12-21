@@ -35,6 +35,26 @@ namespace Testing
                 var image_new = new Bitmap(stream);
                 image_new.Save(target);       
             }
+            
+            //Edit existing file
+            var tempPath = Path.GetTempFileName();
+            var originalPath = @"C:\Users\rosnero\Desktop\2.png";
+
+            using (var bitmap = new Bitmap(originalPath))
+            {
+                for (int i = 0; i < bitmap.Height; i++)
+                {
+                    for (int j = 0; j < bitmap.Width; j++)
+                    {
+                        bitmap.SetPixel(j, i, Color.Yellow);
+                    }
+                }
+
+                bitmap.Save(tempPath);
+            }
+
+            File.Delete(originalPath);
+            File.Move(tempPath, originalPath);
         }
     }
 }
