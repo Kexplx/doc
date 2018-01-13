@@ -1,0 +1,11 @@
+var url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/LLL%20OG?api_key=RGAPI-2c260862-8106-4cfa-8cbc-1c0ec056ff1d";
+
+var request = (HttpWebRequest)WebRequest.Create(url);
+var response = (HttpWebResponse)request.GetResponse();
+
+using (var stream = response.GetResponseStream())
+{
+  var reader = new StreamReader(stream);
+
+  var result = reader.ReadToEnd();
+}
