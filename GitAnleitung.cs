@@ -48,3 +48,6 @@ git commit -m "First Commit"
 git remote add origin "https://github.com/Kexplx/Vier-Gewinnt.git"
 git remote -v //verifizierung
 git push origin master
+
+$ git config credential.helper store
+$ git push https://github.com/repo.git
