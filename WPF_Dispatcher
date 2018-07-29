@@ -1,0 +1,17 @@
+            new Thread(() =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    lbl1.Background = Brushes.Green;
+                });
+
+                Thread.Sleep(2000);
+
+                Dispatcher.Invoke(() =>
+                {
+                    lbl1.Background = Brushes.Red;
+                });
+            }).Start();
+            
+            
+            Wichtig!: Pro Invoke des Dispatchers nur eine UI Aktion
