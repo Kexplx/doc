@@ -1,0 +1,75 @@
+        <ListBox Name="lbAddonList" HorizontalContentAlignment="Stretch" Margin="252,29,296,48" BorderBrush="DarkGray" BorderThickness="2" Background="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Background="{Binding RowColor}" Grid.Column="0" Text="{Binding Name}" />
+                        <TextBlock Background="{Binding RowColor}" Grid.Column="1">Press</TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="252,386,0,0" TextWrapping="Wrap" TextChanged="TextBox_TextChanged" VerticalAlignment="Top" Width="120"/>
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            foreach (var item in lbAddonList.Items)
+            {
+                if (((item as Student).Name == (sender as TextBox).Text))
+                {
+                    (item as Student).RowColor = Brushes.Red;
+                }
+                else
+                {
+                    (item as Student).RowColor = Brushes.White;
+                }
+            }
+
+            lbAddonList.Items.Refresh();
+        }
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+class Student
+    {
+        private string name;
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+        private SolidColorBrush rowColor = Brushes.White;
+
+        public SolidColorBrush RowColor
+        {
+            get
+            {
+                return rowColor;
+            }
+            set
+            {
+                rowColor = value;
+            }
+        }
+    }

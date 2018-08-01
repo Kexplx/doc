@@ -1,0 +1,10 @@
+var childWindow = new ChildWindow();
+childWindow.Owner = this;
+
+childWindow.show();
+
+
+im Child:
+
+//Bestimmte Textbox fokusieren
+FocusManager.SetFocusedElement(mygrid, grid);

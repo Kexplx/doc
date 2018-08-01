@@ -1,0 +1,23 @@
+public class StudentViewModel
+{
+	public Student Student
+	{
+		get;
+		set;
+	}
+
+	//Name ist in Student enthalten
+	//Nur die in der UI benötigten Properties in die StudentViewModel 
+	//Klasse als Property schreiben
+	public string Name
+	{
+		get
+		{
+			return Student.Name;
+		}
+		set
+		{
+			Student.Name = value;
+		}
+	}
+}
