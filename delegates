@@ -1,0 +1,21 @@
+//Delegates sind Platzhalter in Methoden Paramter
+            public delegate void StringInDelegate(string a);
+
+            public void AMethod(string b)
+            {
+
+            }
+            
+            public void BMethod(string b)
+            {
+
+            }
+
+            public void MethodWithPlaceholder(StringInDelegate del)
+            {
+
+            }
+
+            //aufruf: Beide Methoden können der Funktion übergeben werden solang sie dem Aufbau des StringInDelegates entsprechen
+            MethodWithPlaceholder(AMethod);
+            MethodWithPlaceholder(BMethod);
