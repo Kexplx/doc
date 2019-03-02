@@ -1,8 +1,11 @@
-REST API
+﻿REST API
 
 [Route("api/[controller]/")]
 
 private static IList<User> users = new List<User>();
+
+//client IP Adress, in Constructor des Controllers packen?
+var ip = Request.HttpContext.Connection.RemoteIpAddress;
 
 [HttpGet("name")]
 public IActionResult GetUserByName([FromRoute] string name)
@@ -37,36 +40,36 @@ public IActionResult Get(string[] unames)
 	return Ok(users.Where(X => unames.Contains(X.UserName)));
 }
 
------------------------------------------------------------------------------------------------------------
-    class Program
+------------------------------------------------------------------------------------------------------------
+	
+	class Program
     {
-        private static readonly HttpClient client = new HttpClient();
-
         static void Main(string[] args)
         {
-            var task = PostAsync();
+            var client = new HttpClient();
 
-            //Methode wartet.
-            task.Wait();
+            var getTask = GetUser(client);
+            getTask.Wait();
+
+            var content = getTask.Result.content;
+            var responseCode = getTask.Result.statusCode;
         }
 
-        static async Task PostAsync()
+        static async Task<(string content, HttpStatusCode statusCode)> GetUser(HttpClient client)
         {
-            //body bauen
-            var values = new Dictionary<string, string>
-            {
-                { "UserName", Guid.NewGuid().ToString() }
-            };
-
-            //body formatieren
-            var content = new FormUrlEncodedContent(values);
-
-            //hier wird zurück in die Main gesprungen wenn die response noch nicht fertig ist.
+			//hier wird zurück in die Main gesprungen wenn die response noch nicht fertig ist.
             //Wenn er zurück kommt wird die main methode gestoppt und hier her zurück gesprungen
             //es wird das Programm beendet, auch wenn noch awaits laufen, daher ist Task.WaitAll() wichtig
-            var response = await client.PostAsync("http://localhost:60499/api/Users", content);
+            var response = await client.GetAsync("https://localhost:44332/api/Users");
+            var content = await response.Content.ReadAsStringAsync();
+            var responseCode = response.StatusCode;
 
-            var responseString = response.Content;
-            var header = response.Headers;
+            //Json to User Object
+            var user = JsonConvert.DeserializeObject<User>(content);
+
+            //Json to xml
+            var xmlDoc = JsonConvert.DeserializeXmlNode(content, "User");
+
+            return (xmlDoc.InnerXml, responseCode);
         }
     }
