@@ -1,0 +1,9 @@
+          C:\Users\Oscar\source\repos\WebApplication1\.vs\config
+          Die ersten zwei ergänzen
+
+          <binding protocol="http" bindingInformation="*:54084:192.168.178.90" />
+          <binding protocol="https" bindingInformation="*:44372:192.168.178.90" />
+          <binding protocol="http" bindingInformation="*:54084:localhost" />
+          <binding protocol="https" bindingInformation="*:44372:localhost" />
+
+          VS Studio als Admin ausführen!

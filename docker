@@ -1,0 +1,14 @@
+Dockerfile -> Image -> Container
+
+In Verzeichnis mit Dockerfile -> docker build --tag myapp .
+
+docker build -t myapi -f c:\users\oscar\source\repos\webapplication4\webapplication4\dockerfile ..
+
+docker run -p [HostPort]:[ContainerPort] [tag] -> docker run -p 6001:80 myapi
+
+docker image ls -> show all Images
+docker image rm [IMAGE ID] -> Delete image
+
+#container erzeugen
+#container anschauen
+#image archiev erstellen..
