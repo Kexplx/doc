@@ -1,0 +1,18 @@
+Dockerfile -> Image -> Container
+
+In Verzeichnis mit Dockerfile ->
+
+docker build -t myapi -f c:\users\oscar\source\repos\webapplication2\webapplication2\dockerfile ..
+
+docker run -p [HostPort]:[ContainerPort] [tag] -> docker run -p 6001:80 myapi
+
+docker image ls -> show all Images
+docker image rm [IMAGE ID] -> Delete image
+docker ps -> show all running containers
+docker stop my_container -> stop my_container
+docker save [IMAGE_ID] > mysavedimage.tar
+docker import mysavedimage.tar
+
+#container erzeugen
+#container anschauen
+#image archiev erstellen..

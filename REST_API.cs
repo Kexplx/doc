@@ -57,7 +57,7 @@ public IActionResult Get(string[] unames)
 
         static async Task<(string content, HttpStatusCode statusCode)> GetUser(HttpClient client)
         {
-			//hier wird zurück in die Main gesprungen wenn die response noch nicht fertig ist.
+	    //hier wird zurück in die Main gesprungen wenn die response noch nicht fertig ist.
             //Wenn er zurück kommt wird die main methode gestoppt und hier her zurück gesprungen
             //es wird das Programm beendet, auch wenn noch awaits laufen, daher ist Task.WaitAll() wichtig
             var response = await client.GetAsync("https://localhost:44332/api/Users");

@@ -1,0 +1,19 @@
+        // GET: api/User
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            var x = Request.Headers.TryGetValue("Authorization", out var value);
+            var (password, username) = GetUserNameAndPasswordFromBasic64EncodedString(value);
+
+            return new string[] { "dasjdas", "" };
+        }
+
+        private (string username, string password) GetUserNameAndPasswordFromBasic64EncodedString(string basic64String)
+        {
+            var authenticationPräfix = "Basic ";
+
+            var data = Convert.FromBase64String(basic64String.ToString().Replace(authenticationPräfix, ""));
+            var decodedString = Encoding.UTF8.GetString(data).Split(':');
+
+            return (decodedString[0], decodedString[1]);
+        }
