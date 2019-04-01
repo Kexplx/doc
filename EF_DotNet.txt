@@ -1,0 +1,56 @@
+    public class MailServiceDatabaseContext : DbContext
+    {
+        public MailServiceDatabaseContext() : base(ConnectionStrings.CompileTimeSwitchedString)
+        {
+            Configuration.ProxyCreationEnabled = false; 
+            
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MailServiceDatabaseContext, Configuration>(true));
+        }
+
+        public DbSet<User> Users
+        {
+            get;
+            set;
+        }
+    }
+
+    --------------------------------------------------------------------------------------
+
+public class User
+    {
+        [Key]
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public DateTime Registered_Date
+        {
+            get;
+            set;
+        }
+}
+
+
+
+    --------------------------------------------------------------------------------------
+
+public class Configuration : DbMigrationsConfiguration<MailServiceDatabaseContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = true;
+        }
+    }
+
+    --------------------------------------------------------------------------------------
+
+    public static class ConnectionStrings
+    {
+        private const string Production = "";
+        private const string Development = "";
+
+        public const string CompileTimeSwichedString = Production;
+    }
