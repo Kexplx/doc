@@ -2,9 +2,11 @@ Dockerfile -> Image -> Container
 
 In Verzeichnis mit Dockerfile ->
 
+//Image erzeugen
 docker build -t myapi -f c:\users\oscar\source\repos\webapplication2\webapplication2\dockerfile ..
 
-docker run -p [HostPort]:[ContainerPort] [tag] -> docker run -p 6001:80 myapi
+//Image ausführen und COntainer starten, tag ist image iD
+docker run -p [HostPort]:[ContainerPort] [tag] z.B. docker run -p 6001:80 myapi
 
 docker image ls -> show all Images
 docker image rm [IMAGE ID] -> Delete image

@@ -1,0 +1,14 @@
+            var o = new User
+            {
+                Name = "Oscar",
+                PasswordHash = "PwHash",
+                Salt = "sallllllllt"
+            };
+
+            //Reference auf Netwonsoft.Json für JsonConvert
+            var bodyToSend = new StringContent(JsonConvert.SerializeObject(o), Encoding.UTF8, "application/json");
+
+            var response = client.PostAsync("https://localhost:44350/api/Users", bodyToSend).Result;
+            var responseContent = response.Content.ReadAsStringAsync().Result;
+
+            var responseContentAsObject = JsonConvert.DeserializeObject<User>(content2) as User;

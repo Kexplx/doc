@@ -17,3 +17,17 @@
 
             return (decodedString[0], decodedString[1]);
         }
+
+
+
+        -----------------------------------------------------------------------------------------
+        CLIENT
+        static void Main(string[] args)
+        {
+            var client = new HttpClient();
+
+            //Basic Authentification, added as header, encrypted with Base64
+            
+            var byteArray = Encoding.ASCII.GetBytes("userName" + ":" + "password");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+        }
