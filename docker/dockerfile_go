@@ -1,0 +1,29 @@
+# If we use FROM golang:alpine git won't be installed
+# We need git to run go get
+FROM golang:latest
+
+ADD ./main.go /go/src/github.com/kexplx/test/main.go
+
+# Local package
+ADD ./util /go/src/github.com/kexplx/test/util
+
+# Will install in github.com/gorilla/websocket
+RUN go get -d -v /go/src/github.com/gorilla/websocket
+
+# Will create executable in current directory not /go/src/github.com/...
+RUN go build /go/src/github.com/kexplx/test/main.go
+ENTRYPOINT [ "./main" ]
+
+
+
+
+
+
+# Go to directory of Dockerfile and main.go
+# docker build .
+# Copy Image-ID
+# docker run -d -p 8080:8080 ba3b80b3eda1
+
+
+# docker container prune
+# docker image prune 

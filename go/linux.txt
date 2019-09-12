@@ -1,0 +1,20 @@
+// Install
+wget https://storage.googleapis.com/golang/go1.7.3.linux-armv6l.tar.gz
+sudo tar -C /usr/local -xzf go1.7.3.linux-armv6l.tar.gz
+
+go env
+- export GOROOT=/usr/local/go
+- export GOPATH=/home/pi/go
+
+
+home/pi/go/src/hello/main.go
+- sudo go run main.go
+- sudo build main.go 
+	- sudo ./main.go
+
+// Start in Background
+nohup ./main &
+
+
+ps -A | grep main 
+   sudo kill {ID}

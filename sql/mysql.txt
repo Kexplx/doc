@@ -1,0 +1,14 @@
+CREATE TABLE contacts
+( contact_id INT NOT NULL AUTO_INCREMENT,
+  last_name VARCHAR(30) NOT NULL,
+  first_name VARCHAR(25),
+  birthday DATE,
+  CONSTRAINT contacts_pk PRIMARY KEY (contact_id)
+);
+
+INSERT INTO Customers (CustomerName, City, Country)
+VALUES ('Cardinal', 'Stavanger', 'Norway');
+
+// SET fk to other table
+ALTER TABLE students ADD adress_id int;
+ALTER TABLE students ADD CONSTRAINT fk_adress_id FOREIGN KEY (adress_id) REFERENCES adresses(id);
