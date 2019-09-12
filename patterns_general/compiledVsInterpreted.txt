@@ -1,0 +1,15 @@
+Compiled Language-> compiliert direkt in maschinen (native) code des jeweiligen prozessors.
+
+Vorteil Schnell
+
+interpreted language -> compiliert nicht direkt zu maschinen code sondern erst woanders hin z.B. Java kompiliert zu bytecode.
+
+Vorteil: Unabhängig von hardware
+
+
+
+
+
+
+
+

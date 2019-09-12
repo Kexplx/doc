@@ -1,0 +1,16 @@
+Stack vs Heap. Grund zur trennung ist performanz
+
+Im Heap werden Variablen die vermutlich lange leben gespeichert (z.B. globale Variablen, aus main funktion.) die durcheinander angelegt und gelöscht werden können.
+
+Im Stack (Last in first out), werden Variablen eines scopes (Funktion, if, etc.) , die danach nicht mehr existieren gespeichert. Der Pointer des Stacks wechselt auf den benötigten Speicherplatz einer aufgerufenen Funktion und springt nach verlassen des scopes wieder zurück zum letzten element. Ein Stack ist sehr performant da speicher schnell allokiert und deallokiert werden kann.
+
+Garbage collection nur für Variablen im Heap, da die Variablen eines Scopes auf dem stack ja automatisch nach velassen der gelöscht werden.
+
+Beispiel Garbage Collection.
+func main(){
+	var x := new student()
+	x = new student()
+
+	// Das erste Objekt wird jetzt von nichts mehr 
+	// referenziert und von der GC gelöscht
+}

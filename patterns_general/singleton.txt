@@ -1,0 +1,30 @@
+Singleton Pattern
+
+Konfigurationsdatei config.json soll in Model dargestellt werden.
+Im Konstruktor der Model Klasse wird die config.json datei auf der festplatte gelesen. 
+
+Die Datei wird sich nicht ändern, und wenn mehrere Funktionen neue Instanzen der Klasse erstellen kann es zu problemen mit Lesezugriff auf die config.json datei kommen.
+
+Daher singleton hier sinnvoll, wodurch nur ein object der Klasse entsteht. 
+
+Umsetzung:
+// Nicht static, sonst müsste alles static sein
+// Wir wollen ja aber eine tatsächliche instanz
+class MyConfigClass
+
+// Static so we can call it from static Method GetNewInstance()
+private static MyConfigClass instance = null;
+
+// Private Constructor so Class cannot be initialized from outside.
+private MyConfigClass(){
+	
+}
+
+// Needs to be static to be called w/o an instance from outside
+public static MyConfigClass GetNewInstance(){
+	if (instance == null){
+		instance = new MyConfigClass()
+	}
+
+	return instance
+} 
