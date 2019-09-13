@@ -1,0 +1,130 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Token / GoBox</title>
+    <link rel="icon" href="/public/images/app.ico">
+    <link rel="stylesheet" href="/public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/registry.css">
+    <script src="/public/vendors/jquery/js/jquery-3.4.1.min.js"></script>
+    <script src="/public/vendors/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <img class="img-nav" src="/public/images/app.ico " alt="The GoApps Logo">
+        <div class="navbar-nav ">
+            <a class="nav-link" href="/token">Token</a>
+            <a class="nav-link " href="/upload">Upload</a>
+            <a class="nav-link active" href="/registry">Registry</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-link " href="http://github.com">Github</a>
+        </div>
+    </nav>
+    <div class="container-main">
+        <div class="container-mainImg">
+            <a title="Check out the Code " href="https://github.com ">
+                <img class="img-main" src="/public/images/app.svg" alt="The GoApps Logo ">
+            </a>
+        </div>
+        <h1>Access a Gobox!</h1>
+        <h5>Enter your Token below and click <strong>Lookup</strong>.</h5>
+        <hr>
+        <form method="POST" id="tokenForm">
+            <div class="container-tokenInput">
+                <input type="text" id="tokenInput" required class="form-control" placeholder="Enter token">
+                <small id="emailHelp" class="form-text text-muted">Don't have a token yet? Get one <a href="/token">here.</a></small>
+            </div>
+            <button class="btn btn-primary" onclick="$(this).blur();" type="submit">Lookup</button>
+        </form>
+        <div id="gobox" class="container-gobox border-rad">
+            <div class="container-gobox-top">
+                <strong id="gobox-token" style="font-weight: 600"></strong>
+                <br>
+                <small id="gobox-size"></small>
+                <small>| Click to download.</small>
+            </div>
+            <ul id="container-gobox-mid" class="container-gobox-mid">
+            </ul>
+        </div>
+
+        <div class="modal fade" id="mainModal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div id="modal-fail" class="modal-content modal-content-fail">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Error - <span id="modal-errorMessage"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        GoBox: <strong id="modalToken-f"></strong> doesn't exist.
+                        <br>
+                        <small>Get a valid token <a href="/token">here</a>.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $('#tokenForm').submit(function(e) {
+                e.preventDefault()
+                t = $('#tokenInput').val()
+                url = "/getBox?t=" + t
+
+                fetch(url)
+                    .then(function(response) {
+                        var gobox = document.getElementById("gobox")
+                        if (response.status !== 200) {
+                            gobox.style.visibility = "hidden"
+
+                            $('#modal-errorMessage').text(response.status + " " + response.statusText);
+                            $('#modalToken-f').text(t);
+                            $('#modal-fail').show();
+                            $('#modal-success').hide();
+
+                            $('#mainModal').modal('show')
+                            return;
+                        }
+
+                        response.json().then(function(data) {
+                            obj = JSON.parse(JSON.stringify(data))
+                            $('#gobox-token').html(obj.token)
+                            $('#gobox-size').html(obj.files.length + " Files with " + getSize(obj.size))
+
+                            $('#container-gobox-mid').empty()
+                            obj.files.forEach(file => {
+                                $('#container-gobox-mid').append('<a title = "' + file.name + "." + file.extension + '" download="' + file.name + "." + file.extension + '" class="border-rad" href="' + file.path + '"><div class="container-files-fb"><p>' +
+                                    cutName(file.name) + '</p><small>' + getSize(file.size) +
+                                    '</small></div><small><img src="/public/images/fileTypes/' + file.extension + '.svg" onerror="if (this.src != &quot;/public/images/fileTypes/file.svg&quot;) this.src = &quot;/public/images/fileTypes/file.svg&quot;;" style="width: 30px" alt=""> | ' +
+                                    file.created + '</small></a>')
+                            });
+
+                            gobox.style.visibility = "visible"
+                        });
+                    })
+            });
+
+            function getSize(bytes) {
+                if (bytes > 1000 && bytes < 1000000) {
+                    return Math.ceil(bytes / 1000) + " KB"
+                } else if (bytes > 1000000) {
+                    return Math.ceil(bytes / 1000000) + " MB"
+                } else {
+                    return bytes + " B"
+                }
+            }
+
+            function cutName(name) {
+                debugger;
+                if (name.length > 7) {
+                    return name.substring(0, 5) + ".." + name.substring(name.length - 2, name.length)
+                }
+                return name
+            }
+        </script>
+</body>
+
+</html>

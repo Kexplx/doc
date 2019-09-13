@@ -1,0 +1,118 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload / GoBox</title>
+    <link rel="icon" href="/public/images/app.ico">
+    <script src="/public/vendors/jquery/js/jquery-3.4.1.min.js"></script>
+    <script src="/public/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/upload.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <img class="img-nav" src="/public/images/app.ico " alt="The GoApps Logo">
+        <div class="navbar-nav ">
+            <a class="nav-link" href="/token">Token</a>
+            <a class="nav-link active" href="/upload">Upload</a>
+            <a class="nav-link " href="/registry">Registry</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-link " href="http://github.com">Github</a>
+        </div>
+    </nav>
+    <div class="container-main">
+        <div class="container-mainImg">
+            <a title="Check out the Code " href="https://github.com ">
+                <img class="img-main" src="/public/images/app.svg" alt="The GoApps Logo ">
+            </a>
+        </div>
+        <h1>Upload files!</h1>
+        <h5>Use the form below to upload one or more files to your GoBox.</h5>
+        <hr>
+        <form id="fileForm" method="POST" enctype="multipart/form-data" class="form-fileUpload">
+            <div class="container-tokenInput">
+                <input id="token" name="token" required type="text" required class="form-control" placeholder="Enter token">
+                <small id="emailHelp" class="form-text text-muted">Don't have a token yet? Get one <a href="#">here.</a></small>
+            </div>
+            <div class="custom-file">
+                <input name="file" required type="file" class="custom-file-input" id="file" />
+                <label class="custom-file-label" for="file">Choose file</label>
+                <small id="emailHelp" class="form-text text-muted">Files &lt; 1MB accepted. A GoBox's max Capactiy is 6.</small>
+            </div>
+            <button id="mybutton" type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        <div class="modal fade" id="mainModal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div id="modal-success" class="modal-content modal-content-success">
+                    <div class="modal-header">
+                        <h5 class="modal-title">File added!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        The selected file has been added successfully to:
+                        <strong id="modalToken-s"></strong>
+                        <br>
+                        <small>
+                            Go to the <a href="/registry">registry</a> to access the box.
+                        </small>
+                    </div>
+                </div>
+                <div id="modal-fail" class="modal-content modal-content-fail">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Error - <span id="modal-errorMessage"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        The selected file couldn't be added to GoBox:
+                        <strong id="modalToken-f"></strong>
+                        <br>
+                        <small>Files &lt; 1MB accepted. A GoBox's Capactiy is 6.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
+
+<script>
+    $('#fileForm').submit(function(e) {
+        e.preventDefault()
+
+        var data = new FormData()
+        data.append('file', document.querySelector('input[type="file"]').files[0])
+        data.append('token', $('#token').val())
+
+        fetch('/addFile', {
+            method: 'POST',
+            body: data
+        }).then(function(data) {
+            if (data.status == 200) {
+                $('#modalToken-s').text($('#token').val())
+
+                $('#modal-success').show();
+                $('#modal-fail').hide();
+            } else {
+                $('#modalToken-f').text($('#token').val());
+                $('#modal-errorMessage').text(data.status + " " + data.statusText);
+
+                $('#modal-fail').show();
+                $('#modal-success').hide();
+            }
+            $('#mainModal').modal('show')
+        });
+    });
+
+    $('#file').on('change', function() {
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(fileName.replace("C:\\fakepath\\", " "));
+        $("#mybutton").prop("disabled", false)
+    })
+</script>

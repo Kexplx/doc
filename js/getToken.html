@@ -1,0 +1,65 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registry / GoBox</title>
+    <link rel="icon" href="/public/images/app.ico">
+    <link rel="stylesheet" href="/public/vendors/bootstrap/css/bootstrap.min.css">
+    <script src="/public/vendors/jquery/js/jquery-3.4.1.min.js"></script>
+    <script src="/public/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/css/getToken.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <img class="img-nav" src="/public/images/app.ico " alt="The GoApps Logo">
+        <div class="navbar-nav ">
+            <a class="nav-link active" href="/token">Token</a>
+            <a class="nav-link " href="/upload">Upload</a>
+            <a class="nav-link " href="/registry">Registry</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-link " href="http://github.com">Github</a>
+        </div>
+    </nav>
+    <div class="container-main">
+        <div class="container-mainImg">
+            <a title="Check out the Code " href="https://github.com ">
+                <img class="img-main" src="/public/images/app.svg" alt="The GoApps Logo ">
+            </a>
+        </div>
+        <h1>Get a Token!</h1>
+        <h5>Click <strong>Get</strong> to generate a new token.</h5>
+        <hr>
+        <button class="btn btn-primary" onclick="$(this).blur(); getToken();">Get</button>
+    </div>
+    <div id="credentialGroup" class="container-credentials">
+        <div title="Copy to Clipboard" onclick="copyToClipboard( '#copyToken') " class="list-group-item list-group-item-action rcorners">
+            <p id="copyToken" class="mb-2 "><strong>-</strong></p>
+            <small>Click to Copy</small>
+        </div>
+        <small>Copy the token above to access your container
+            <a id="containerLink" href="/registry">here.</a>
+            <small>
+    </div>
+
+    <script type="text/javascript">
+        async function getToken() {
+            const response = await fetch('/getToken');
+            jsonResponse = await response.json();
+
+            $('#copyToken').html(jsonResponse.token)
+        }
+
+        function copyToClipboard(element) {
+            var $temp = $('<input>');
+            $('body').append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand('copy');
+            $temp.remove();
+        }
+    </script>
+</body>
+
+</html>
