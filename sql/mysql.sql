@@ -1,9 +1,10 @@
 CREATE TABLE contacts
-( contact_id INT NOT NULL AUTO_INCREMENT,
-  last_name VARCHAR(30) NOT NULL,
-  first_name VARCHAR(25),
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  last_name VARCHAR(50) NOT NULL,
+  first_name VARCHAR(50),
   birthday DATE,
-  CONSTRAINT contacts_pk PRIMARY KEY (contact_id)
+  CONSTRAINT contacts_pk PRIMARY KEY (id)
 );
 
 INSERT INTO Customers (CustomerName, City, Country)

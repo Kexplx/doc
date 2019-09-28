@@ -1,0 +1,3 @@
+// In MySQL Workbench: Server -> Users and Privileges -> Add Account ->
+		. change authentication method to standard.
+		. Give all privileges (Server->Users and Privileges->Administrative Roles)

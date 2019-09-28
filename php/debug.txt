@@ -1,0 +1,19 @@
+0. VSCode Debug extension installieren
+1. Server Starten und auf index.php phpinfo() ausführen
+2. Alles kopieren und https://xdebug.org/wizard.php hier einfügen.
+3. Schritten folgen.
+4. php.ini-develop zu php.ini umbenenn
+
+"zend_extension = C:\php\ext\php_xdebug-2.7.2-7.1-vc14-nts-x86_64.dll
+
+[XDebug]
+xdebug.remote_enable = 1
+xdebug.remote_autostart = 1
+
+[PHP]
+
+;;;;;;;;;;;;;;;;;;;
+; About php.ini   ;
+;;;;;;;;;;;;;;;;;;;
+; PHP's initialization file, generally called php.ini, is responsible for
+; configuring many of the aspects of PHP's behavior."
