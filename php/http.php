@@ -38,7 +38,7 @@ $context = stream_context_create($opts);
 //-----------------------------------------------------------------------
 
 
-// Send GET Request short (get only response body)
+// Send GET Request (get only response body)
 // $content will be a plains string containing the response body
 $body = file_get_contents("http://coolSite.com");
 $body = file_get_contents("http://coolSite.com", $context);
@@ -47,7 +47,7 @@ $body = file_get_contents("http://coolSite.com", $context);
 //-----------------------------------------------------------------------
 
 
-// Send GET/POST Request long (get response headers and body)
+// Send GET/POST Request (get response headers and body)
 $stream = fopen("http://coolSite.com", 'r', false, $context);
 // $meta is an array
 // HTTP Headers are saved in the field 'wrapper_data' = [0 => "Header1: Value1", 1 => "Header2: Value2", ..]
@@ -63,7 +63,7 @@ $body = stream_get_contents($stream);
 /* Sends a http request to $url and returns the response as an array
     [
         "http_version" => // String
-        "status_code"  => // String
+        "status_code"  => // Int
         "status_text"  => // String
         "headers"      => ["header1" => "header1_value", "header2" => "header2_value", ..]
         "body"         => // String
@@ -85,7 +85,7 @@ function get(string $url):array{
     
     $result = [];
     $result['http_version'] = $out[1][0];
-    $result['status_code'] = $out[2][0];
+    $result['status_code'] = intval($out[2][0]);
     $result['status_text'] = $out[3][0];
 
     $headers = array_slice($meta['wrapper_data'], 1);

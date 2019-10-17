@@ -1,0 +1,24 @@
+{
+    "autoload": {
+        "classmap": [
+            "app/models"
+        ]
+    }
+}
+
+composer dump-autoload -o //creates vendor/autoload.php
+If Class from app/models is needed just: require_once __DIR__ . "/vendor/autoload.php";
+
+{
+    "autoload": {
+        "classmap": [
+            "app/models"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
+}
+
+// installs every package from "require-dev" into /vendor
+composer update 
