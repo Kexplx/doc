@@ -1,0 +1,75 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Models;
+
+namespace WebApplication1.Controllers
+{
+    [Route("api/students")]
+    [ApiController]
+    public class StudentsController : ControllerBase
+    {
+        // Even though this is an API Controller, Routes dont map the HTTP Method to an action.
+        // We need the Http annotations before every method.
+
+
+        // GET /api/students               Hit
+        // GET /api/students?name=oscar    Hit
+        [HttpGet]
+        public IActionResult GetAllStudents(string name)
+        {
+            return Ok(/*students*/);
+        }
+
+        // GET /api/students/3              Hit
+        // GET /api/students/3/4            No Hit
+        // GET /api/students/3?name=oscar   Hit
+        [HttpGet("{id}")]
+        public IActionResult FindStudentById(int id, string name)
+        {
+            return Ok(/*student*/);
+        }
+
+        // GET /api/students/{id}/{name?}
+        //
+        // GET /api/students/3/oscar        Hit
+        // GET /api/students/3              Hit (because {name} is optional)
+        [HttpGet("{id}/{name?}")]
+        public IActionResult FindStudentByIdAndName(int id, string name)
+        {
+            return Ok(/*student*/);
+        }
+
+        // POST /api/students
+        [HttpPost]
+        public IActionResult PostStudent(Student student)
+        {
+            // If we used [Required] annotations for the student model's properties,
+            // ASP.NET Core will respond with a BadRequest automatically 
+            // if a required property was omitted by the caller or if the DataTypes were messed up.
+
+            // So if we hit this method, we can assume we have received a valid student object.
+
+            return CreatedAtAction("FindStudentById", student);
+        }
+    }
+}
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------
+
+using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication1.Models
+{
+    public class Student
+    {
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public int Age { get; set; }
+    }
+}

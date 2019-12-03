@@ -1,0 +1,47 @@
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace c1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ControllerMethod();
+            while(true)
+            {
+                Console.WriteLine("normal execution on main thread.");
+                Thread.Sleep(1000);
+            }
+        }
+
+        static async Task ControllerMethod()
+        {
+            Console.WriteLine("awaiting...");
+
+            // after await is called, we jump back to the caller Method (Main()) and proceed normal execution.
+            // When the awaited task is finished, a thread from the ThreadPool (can be any thread) will 
+            // return to ControllerMethod() in its previous context and continue execution.
+            await Task.Delay(3000);
+
+            Console.WriteLine("await finished.");
+            while(true)
+            {
+                Console.WriteLine("new thread executing on ControllerMethod().");
+                Thread.Sleep(1000);
+            }
+        }
+
+        // awaiting...
+        // normal execution on main thread.  (we jumped back to main thread because of await, ControllerMethod() is on hold.)
+        // normal execution on main thread.
+        // normal execution on main thread.
+        // await finished.
+        // new thread executing on ControllerMethod().
+        // normal execution on main thread.
+        // new thread executing on ControllerMethod().
+        // normal execution on main thread.
+        // new thread executing on ControllerMethod().
+        // ...
+    }
+}

@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+  public static void Main()
+  {
+    getType(5);
+    getType("ayy");
+    getType(3.1);
+    getType(true);
+  }
+
+  public static void getType(object o){
+    switch(o){
+      case int x:
+        Console.WriteLine("It's an Integer.");
+        break;
+
+      case string s:
+        Console.WriteLine("It's a string");
+        break;
+
+      case double d:
+        Console.WriteLine("It's a double");
+        break;
+
+      default:
+        Console.WriteLine("It's not in {float, int, string}");
+        break;
+    }
+  }
+}
