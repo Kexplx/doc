@@ -1,14 +1,60 @@
-            var o = new User
-            {
-                Name = "Oscar",
-                PasswordHash = "PwHash",
-                Salt = "sallllllllt"
-            };
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
 
-            //Reference auf Netwonsoft.Json für JsonConvert
-            var bodyToSend = new StringContent(JsonConvert.SerializeObject(o), Encoding.UTF8, "application/json");
+    public IConfiguration Configuration { get; }
 
-            var response = client.PostAsync("https://localhost:44350/api/Users", bodyToSend).Result;
-            var responseContent = response.Content.ReadAsStringAsync().Result;
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddHttpClient();
+        // Remaining code deleted for brevity.
 
-            var responseContentAsObject = JsonConvert.DeserializeObject<User>(content2) as User;
+
+        services.AddHttpClient("github", c =>
+		{
+		    c.BaseAddress = new Uri("https://api.github.com/");
+		    // Github API versioning
+		    c.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+		    // Github requires a user-agent
+		    c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
+		});
+		
+
+[HttpGet]
+public async Task<IActionResult> GetStuff()
+{
+    using (var client = clientFactory.CreateClient())
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://..");
+
+        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+        var response = await client.SendAsync(request);
+
+        // Handle response..
+
+        return Ok();
+    }
+}
+
+[HttpPost]
+public async Task<IActionResult> PostStuff(Student student)
+{
+    using (var client = clientFactory.CreateClient())
+    {
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://..");
+        
+        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+        
+        request.Content = new StringContent(JsonConvert.SerializeObject(student), Encoding.UTF8, "application/json");
+
+        var response = await client.SendAsync(request);
+
+        // Handle response..
+
+        return Ok();
+    }
+}
