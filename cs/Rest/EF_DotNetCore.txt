@@ -1,34 +1,37 @@
-    public class TokenCacheAppContext : DbContext
+PM > Install-Package Microsoft.EntityFrameworkCore.SqlServer
+
+
+public class TokenCacheAppContext : DbContext
+{
+    public TokenCacheAppContext(DbContextOptions<TokenCacheAppContext> options) : base(options)
     {
-        public TokenCacheAppContext(DbContextOptions<TokenCacheAppContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
-
-        public DbSet<User> Users
-        {
-            get;
-            set;
-        }
-
-        public DbSet<Item> Items
-        {
-            get;
-            set;
-        }
+        Database.EnsureCreated();
     }
 
-    ---------------------------------------------------------------------------------------------
+    public DbSet<User> Users
+    {
+        get;
+        set;
+    }
 
-    //in Startup
-    //in ConfigureServices
-    services.AddDbContext<TokenCacheAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
+    public DbSet<Item> Items
+    {
+        get;
+        set;
+    }
+}
+
+---------------------------------------------------------------------------------------------
+
+//in Startup
+//in ConfigureServices
+services.AddDbContext<TokenCacheAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
 
 
-    ----------------------------------------------------------------
-    //in appsettings.json
+----------------------------------------------------------------
+//in appsettings.json
 
-    "ConnectionStrings": {
-    "Production": "",
-    "Development": "Data Source=DESKTOP-VNFCAOV;Initial Catalog=myDatabase4;Integrated Security=true"
-  }
+"ConnectionStrings": {
+"Production": "",
+"Development": "Data Source=DESKTOP-VNFCAOV;Initial Catalog=myDatabase4;Integrated Security=true"
+}

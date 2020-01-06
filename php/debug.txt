@@ -1,10 +1,13 @@
 0. VSCode Debug extension installieren
 1. Server Starten und auf index.php phpinfo() ausführen
-2. Alles kopieren und https://xdebug.org/wizard.php hier einfügen.
+2. Alles kopieren und dann  hier einfügen https://xdebug.org/wizard.php.
 3. Schritten folgen.
-4. php.ini-develop zu php.ini umbenenn
+4. php.ini-develop zu php.ini umbenennen
 
-"zend_extension = C:\php\ext\php_xdebug-2.7.2-7.1-vc14-nts-x86_64.dll
+
+PHP.ini sieht dann so aus: 
+
+"zend_extension = C:\php\ext\php_xdebug-2.7.2-7.1-vc14-nts-x86_64.dll"
 
 [XDebug]
 xdebug.remote_enable = 1
@@ -17,3 +20,32 @@ xdebug.remote_autostart = 1
 ;;;;;;;;;;;;;;;;;;;
 ; PHP's initialization file, generally called php.ini, is responsible for
 ; configuring many of the aspects of PHP's behavior."
+
+
+Ordner .vscode im Root VZ einfügen.
+Datei launch.json erstellen
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 9000
+        }
+    ]
+}
+
+Webserver starten mit: php -S localhost:4040 -t C:\Users\oscar\phpApps\crimeview\app\public
+Breakpoint setzen in public/index.php
+Debugging starten mit f5
+Wenn man im browser localhost:4040 aufruft sollte er in die zeile springenn

@@ -1,0 +1,20 @@
+class Student { }
+
+class Kid extends Student { }
+
+// Check primitive types mit typeof
+let d = 31;
+
+typeof d == "number"; // True
+typeof d == "string"; // False
+typeof d == "Student"; // Compile Error
+
+// ---------------------------------------
+
+// Check instance types with instanceof
+let s = new Student();
+s instanceof Student; // True;
+
+let k = new Kid();
+k instanceof Kid; // True;
+k instanceof Student; // True;
