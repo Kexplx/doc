@@ -1,0 +1,8 @@
+<Label *ngIf="filename">
+    <small>
+        <i>{{filename}}</i>
+    </small>
+</Label>
+<pre [ngClass]="['prettyprint', _lang?_lang:'']">
+{{_code}}
+</pre>

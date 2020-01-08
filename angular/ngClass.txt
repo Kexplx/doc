@@ -1,0 +1,3 @@
+// Typescript und Strings in einem
+
+[ngClass]="['prettyprint', _lang?_lang:'']"
