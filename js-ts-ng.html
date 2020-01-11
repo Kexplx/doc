@@ -1,0 +1,194 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+        pre.prettyprint {
+            padding-top: 7.5px;
+            border-radius: 5px;
+            border: .5px solid rgb(220, 220, 220);
+            font-size: .8em;
+            white-space: pre-wrap;
+            background-color: #f6f8fa;
+        }
+
+        mark {
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <section id="javascript">
+            <h2 class="text-danger">Javascript</h2>
+            <hr role="separator">
+        </section>
+        <hr role="separator">
+        <section id="typescript">
+            <h2 class="text-info">Typescript</h2>
+            <hr role="separator">
+        </section>
+        <hr role="separator">
+        <section id="angular">
+            <h2 class="text-primary">Angular</h2>
+            <hr role="separator">
+            <section id="services">
+                <h4>Services</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <p><code>ng g s log --spec false</code></p>
+                        <Label><small>Define service - <i>log.service.ts</i></small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { Injectable } from '@angular/core';
+
+    // @Injectable does two things here
+    // 1. providedIn: 'root' puts the service in the highest level.
+    // which makes this services accesible by any component
+    // 
+    // 2. @Injectable() makes this service able to be injected with another service
+    // @Component is therefor by default Injectable
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class LogService {
+        // ...
+    }   
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Inject service, provided in root.</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { LogService } from './services/log.service';
+
+    @Component({
+        // ...
+    })
+    export class UseComponent {
+        // This logService is provided in root
+        // It's shared between all components
+        constructor(private logService: LogService) {}
+    }   
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Inject service, created for this component.</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { LogService } from './services/log.service';
+
+    // Here, instead of using the LogService instance that is provided in root.
+    // We demand our own instance by specifiying it in the providers array.
+    @Component({
+        // ...
+        providers: [
+            LogService
+        ]
+    })
+    export class UseComponent {
+        // new LogService()
+        constructor(private logService: LogService) {}
+    }   
+                        </pre>
+                    </div>
+                </div>
+            </section>
+            <hr role="separator">
+            <section id="routing">
+                <h4>Routing</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Define routes - <i>app.module.ts</i></small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { Routes, RouterModule } from '@angular/router';
+    
+    // .................................................
+    const appRoutes: Routes = [
+        {path: '', component: StudentListComponent},
+        {path: 'home', component: StudentListComponent},
+        {path: 'add', component: AddComponent},
+        {path: 'students/:id', component: StudentDetailsComponent}
+    ];
+
+    // .................................................
+    imports: [
+        // ...
+        RouterModule.forRoot(appRoutes)
+    ],    
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Render Route based components into template - <i>app.component.html</i></small></Label>
+                        <pre class="prettyprint lang-html">
+    &lt;!-- On Load with right URL components will be rendered into &lt;router-outlet>&lt;/router-outlet> -->
+    &lt;router-outlet>&lt;/router-outlet>
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Use ng-properties instead of <code>href</code></small></Label>
+                        <pre class="prettyprint lang-html">
+    &lt;!-- Click will go to /students/{id}?showId=0 -->
+    &lt;!-- when having '/' infront it uses the absolute path -->
+
+    &lt;button [routerLink] = "['/students', student.id]" [queryParams]="{showId:'0'}">&lt;/button>
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Access route and query params programmaticly</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { ActivatedRoute } from '@angular/router';
+    // .................................................
+    constructor(private route: ActivatedRoute) { }
+
+    ngOnInit() {
+        // this.route.snapshot only is the current form of the url
+        // when the url changes e.g. a new id is entered
+        // the component will not do anything e.g. update the id
+
+        // Access .../{id} and parse the string.
+        const id: number = Number(this.route.snapshot.params.id);
+    
+        // Access .../...?showId query param and parse to boolean.
+        const param = this.route.snapshot.queryParams.showId === '1' ? true : false;
+    }
+                        </pre>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+</body>
+
+</html>
