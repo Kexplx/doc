@@ -236,7 +236,10 @@
         {path: '', component: StudentListComponent},
         {path: 'home', component: StudentListComponent},
         {path: 'add', component: AddComponent},
-        {path: 'students/:id', component: StudentDetailsComponent}
+        {path: 'students/:id', component: StudentDetailsComponent},
+        {path: 'not-found', component: NotFoundComponent},
+        // Has to be last route defined.
+        {path: '**', redirectTo: '/not-found'}
     ];
 
     // .................................................
