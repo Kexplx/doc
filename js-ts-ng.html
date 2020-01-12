@@ -233,11 +233,11 @@
     
     // .................................................
     const appRoutes: Routes = [
-        {path: '', component: StudentListComponent},
         {path: 'home', component: StudentListComponent},
         {path: 'add', component: AddComponent},
         {path: 'students/:id', component: StudentDetailsComponent},
         {path: 'not-found', component: NotFoundComponent},
+        { path: '', redirectTo: '/home', pathMatch: 'full' },
         // Has to be last route defined.
         {path: '**', redirectTo: '/not-found'}
     ];
