@@ -249,7 +249,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <Label><small>Render Route based components into template - <i>app.component.html</i></small></Label>
+                        <Label><small>Render Route based components into template -
+                                <i>app.component.html</i></small></Label>
                         <pre class="prettyprint lang-html">
     &lt;!-- On Load with right URL components will be rendered into &lt;router-outlet>&lt;/router-outlet> -->
     &lt;router-outlet>&lt;/router-outlet>
@@ -269,6 +270,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+
                         <Label><small>Access route and query params programmaticly</small></Label>
                         <pre class="prettyprint lang-typescript">
     import { ActivatedRoute } from '@angular/router';
@@ -285,6 +287,28 @@
     
         // Access .../...?showId query param and parse to boolean.
         const param = this.route.snapshot.queryParams.showId === '1' ? true : false;
+    }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Navigate programmaticly</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { ActivatedRoute, Router } from '@angular/router';
+    // .................................................
+    constructor(private route: ActivatedRoute, private route: Router) { }
+
+    navigateAbsolute() {
+        // servers/edit?myParam=ay#lmao
+        this.router.navigate(['/servers', 'edit'], 
+            {queryParams: {myParam: 'ay'}, fragment: 'lmao'});
+    }
+
+    navigateRelative() {
+        // .../edit?paramOfCurrentRoute=1
+        this.router.navigate(['edit'], 
+            {relativeTo: this-route, queryParamsHandling: 'preserve'});
     }
                         </pre>
                     </div>
