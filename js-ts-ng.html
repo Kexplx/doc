@@ -160,18 +160,21 @@
                     <div class="col-12">
                         <pre class="prettyprint lang-typescript">
     // The Promise gets executed right away.
-    new Promise((resolveCallback, rejectCallback) => {
-        // Make API Call...
+    new Promise&lt;string | number>((resolve, reject) => {
+        // Make API Call
+        // ...
     
-        // Success 
-        resolveCallback('It Worked');
+        // On Success
+        resolve('...');
     
-        // Fail 
-        rejectCallback('It Failed');
-    }).then(value => {
-        // resolveCallback
-    }).catch(value => {
-        // rejectCallback
+        // On Fail
+        reject(404);
+    }).then(data => {
+        // data is typeof string | number
+        console.log(data + ' resolved');
+    }).catch(data => {
+        // data is typeof string | number
+        console.log(data + ' rejected');
     });
                         </pre>
                     </div>
