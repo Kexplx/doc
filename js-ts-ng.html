@@ -44,10 +44,41 @@
 <body>
     <div class="container mt-5">
         <section id="javascript">
-            <h2 class="text-danger">Javascript</h2>
+            <h2 class="text-success">Node.js</h2>
             <div class="row">
                 <div class="col-12">
-                    <Label><small>Get Date 1</i></small></Label>
+                    <Label><small>Serve Angular App</i></small></Label>
+                    <pre class="prettyprint lang-javascript">
+    // Build Angular app with: ng b
+    // Put /dist folder into this directory
+    
+    const express = require('express');
+    const path = require('path');
+    
+    const app = new express();
+    const port = 3000;
+    
+    app.use(express.static(__dirname + '/dist'));
+    
+    app.get('*', function (_req, res) {
+        res.sendFile(path.join(__dirname + '/dist/index.html'));
+    });
+    
+    app.listen(port, () => console.log(`Server listening on ${port}`));
+                    </pre>
+                </div>
+            </div>
+        </section>
+        <section id="javascript">
+            <h2 class="text-danger">Javascript</h2>
+            
+        </section>
+        <hr role="separator">
+        <section id="typescript">
+            <h2 class="text-info">Typescript</h2>
+            <div class="row">
+                <div class="col-12">
+                    <Label>Get Date 1</Label>
                     <pre class="prettyprint lang-javascript">
     // 12.1.2020 13:30:7
     function getDate(addTime: boolean = true): string {
@@ -61,7 +92,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <Label><small>Get Date 2</i></small></Label>
+                    <Label>Get Date 2</Label>
                     <pre class="prettyprint lang-javascript">
     // 12.01.2020 13:30:07
     function getDate(addTime: boolean = true): string {
@@ -100,10 +131,20 @@
                     </pre>
                 </div>
             </div>
-        </section>
-        <hr role="separator">
-        <section id="typescript">
-            <h2 class="text-info">Typescript</h2>
+            <div class="row">
+                <div class="col-12">
+                    <label>InsertAtIndex</label>
+                    <pre class="prettyprint lang-typescript">
+    function insertAt(index: any, arr: any[], ...toInsert: any[]) {
+        const left  = arr.slice(0, index);
+        const right = arr.slice(index);
+
+        return left.concat(toInsert)
+                   .concat(right);
+    }
+                    </pre>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <label>Get age</label>
@@ -249,26 +290,48 @@
                 <h4>Routing</h4>
                 <div class="row">
                     <div class="col-12">
-                        <Label><small>Define routes - <i>app.module.ts</i></small></Label>
+                        <Label><small>Define routes in <i>app-routing.module.ts</i> use in
+                                <i>app.module.ts</i></small></Label>
                         <pre class="prettyprint lang-typescript">
-    import { Routes, RouterModule } from '@angular/router';
-    
-    // .................................................
     const appRoutes: Routes = [
-        {path: 'home', component: StudentListComponent},
-        {path: 'add', component: AddComponent},
-        {path: 'students/:id', component: StudentDetailsComponent},
-        {path: 'not-found', component: NotFoundComponent},
-        {path: '', redirectTo: '/home', pathMatch: 'full'},
-        // Has to be last route defined.
-        {path: '**', redirectTo: '/not-found'}
+    {path: 'students', component: StudentListComponent, children: [
+        {path: ':id', component: StudentDetailComponent}
+    ]},
+    {path: '', redirectTo: 'students', pathMatch: 'full'},
+    {path: '**', component: NotFoundComponent}
     ];
-
-    // .................................................
+    
+    @NgModule({
+    declarations: [],
     imports: [
-        // ...
-        RouterModule.forRoot(appRoutes)
-    ],    
+        CommonModule,
+        <mark>RouterModule.forRoot(appRoutes)</mark>
+    ],
+    exports: [
+        <mark>RouterModule</mark>
+    ]
+    })
+    export class AppRoutingModule { }   
+
+    // .................................................................
+
+    @NgModule({
+        declarations: [
+          AppComponent,
+          StudentDetailComponent,
+          StudentListComponent,
+          NotFoundComponent,
+        ],
+        imports: [
+          FormsModule,
+          BrowserModule,
+          <mark>AppRoutingModule</mark>
+        ],
+        providers: [],
+        bootstrap: [AppComponent]
+      })
+      export class AppModule { }
+
                         </pre>
                     </div>
                 </div>
@@ -296,7 +359,10 @@
                 <div class="row">
                     <div class="col-12">
 
-                        <Label><small>Access route and query params programmaticly</small></Label>
+                        <Label><small>Access route and query params programmaticly. All the query params
+                                will be strings initially (Careful when looking for id:number === queryParam:string)
+                            </small></Label>
+
                         <pre class="prettyprint lang-typescript">
     import { ActivatedRoute } from '@angular/router';
     // .................................................
@@ -312,6 +378,15 @@
     
         // Access .../...?showId query param and parse to boolean.
         const param = this.route.snapshot.queryParams.showId === '1' ? true : false;
+
+        // If the Route below the current parent changes, while we are in that parent
+        // students/1 -> students/2 
+        // The url has to be subscribed to to get notify of that change
+        this.route.params.subscribe(
+            (params: Params) => {
+                id = params.id;
+            }
+          );
     }
                         </pre>
                     </div>
@@ -335,6 +410,174 @@
         this.router.navigate(['edit'], 
             {relativeTo: this-route, queryParamsHandling: 'preserve'});
     }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Can Activate Guards</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { Injectable } from '@angular/core';
+    import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+    import { Observable } from 'rxjs';
+    
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class AuthGuardService implements CanActivate {
+    
+        constructor(private router: Router) { }
+    
+        canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
+        return new Promise<boolean>((resolve, reject) => {
+            // Make API call
+            // Call resolve(), reject()
+        }).then((result) => {
+            // Route is allowed.
+            return true;
+        }).catch((result) => {
+            // Route is not allowed, redirect accordingly.
+            this.router.navigate(['/not-allowed']);
+            return false;
+        });
+        }
+    }
+
+    // ................................................
+
+    const appRoutes: Routes = [
+    {path: 'students', component: StudentListComponent, children: [
+    {path: ':id', component: StudentDetailComponent, <mark>canActivate: [AuthGuardService]}</mark>
+    ]},
+    {path: 'not-allowed', component: NotAllowedComponent},
+    {path: '', redirectTo: 'students', pathMatch: 'full'},
+    {path: '**', component: NotFoundComponent}
+    ];
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Can Deactivate Guards. The interface and the service are boilerplate.
+                            </small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { Observable } from 'rxjs';
+
+    export interface CanDeactivateComponent {
+        canDeactivate(): Observable&lt;boolean> | Promise&lt;boolean> | boolean;
+    }
+
+    // ..........................................
+
+    import { Injectable } from '@angular/core';
+    import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+    import { CanDeactivateComponent } from './canDeactivateComponent';
+    import { Observable } from 'rxjs';
+    
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class CanDeactivateGuardService implements CanDeactivate&lt;CanDeactivateComponent> {
+        canDeactivate(component: CanDeactivateComponent,
+                    currentRoute: ActivatedRouteSnapshot,
+                    currentSate: RouterStateSnapshot,
+                    nextState?: RouterStateSnapshot):
+            Observable&lt;boolean> | Promise&lt;boolean> | boolean {
+                return component.canDeactivate();
+            }
+    
+        constructor() { }
+    }
+
+    // .........................................
+
+    export class MyComponent CanDeactivateComponent {
+        // ....
+
+        canDeactivate(): boolean | Promise&lt;boolean> | Observable&lt;boolean> {
+          // Check if Route should be left.
+
+          // return true;
+          // return false;
+          // return confirm('Do you want to discard the changes?');
+        }
+      }
+
+    // .........................................
+
+    const appRoutes: Routes = [
+        {path: 'students', component: StudentListComponent, <mark>canDeactivate: [CanDeactivateGuardService]</mark>, children: [
+        {path: ':id', component: StudentDetailComponent, canActivate: [AuthGuardService]}
+        ]},
+        {path: 'not-allowed', component: NotAllowedComponent},
+        {path: '', redirectTo: 'students', pathMatch: 'full'},
+        {path: '**', component: NotFoundComponent}
+    ];
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Pass static data to component on route load.</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    {path: 'some-route', component: MyComponent, data: {myMessage: 'Page not found'}},
+
+    // .....
+
+    // In the component ...
+    ngOnInit() {
+        this.errorMessageToBind = this.route.snapshot.data.myMessage;
+    }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Use Resolver to preload data before the component is rendered. <br>
+                                This is an alternative to fetching that data in the onInit() method of said component.
+                                <br>
+                                When using a resolver, the component often no longer needs a service to get the data
+                                from.
+                                The Resolver will throw the data into the route.data object.
+                            </small></Label>
+                        <pre class="prettyprint lang-typescript">
+    @Injectable({
+        providedIn: 'root'
+        })
+        export class StudentResolverService implements Resolve&lt;Student> {
+        
+        constructor(public studentService: StudentService) {}
+        
+        resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+            Observable&lt;Student> | Promise&lt;Student> | Student {
+            return this.studentService.getStudentById(+route.params.id);
+            }
+        }
+
+    // .................................
+
+    @Component({
+        selector: 'app-student-detail',
+        templateUrl: './student-detail.component.html',
+        styleUrls: ['./student-detail.component.css']
+        })
+        export class StudentDetailComponent implements OnInit {
+        student: Student;
+        constructor(private route: ActivatedRoute) {}
+        
+        ngOnInit() {
+            this.route.data.subscribe(
+            (data: Data) => {
+                this.student = data.student;
+            }
+            );
+        }
+    }    
+
+    // .................................
+
+    {path: ':id', component: StudentDetailComponent, <mark>resolve: {student: StudentResolverService}</mark>, canActivate: [AuthGuardService]}
                         </pre>
                     </div>
                 </div>
