@@ -3,18 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <title>TS Doc</title>
@@ -29,25 +22,49 @@
             white-space: pre-wrap;
             background-color: #f6f8fa;
         }
-
+        
         mark {
             font-size: 13px;
             font-family: 'Courier New', Courier, monospace;
         }
-
+        
         html {
             scroll-behavior: smooth;
         }
     </style>
 </head>
 
+
 <body>
     <div class="container mt-5">
-        <section id="javascript">
-            <h2 class="text-success">Node.js</h2>
+        <section id="sass">
+            <h2 class="text-info">Sass</h2>
             <div class="row">
                 <div class="col-12">
-                    <Label><small>Serve Angular App</i></small></Label>
+                    <Label><code>sass input.scss output.css</code></Label><br>
+                    <Label><code>sass ./:./someDirectory --no-source-maps</code></Label>
+                    <pre class="prettyprint">
+    //_colors.scss
+    $primary-color: rgb(201, 201, 201);
+
+    // main.scss
+    @import './colors';
+
+    body {
+        color: $primary-color;
+    }
+                    </pre>
+                </div>
+            </div>
+        </section>
+        <section id="node">
+            <h2 class="text-success">Node.js</h2>
+            <code>express my-app</code>
+            <br>
+            <code>"start": "node -r esm .\\app.js"</code>
+            <div class="row">
+                <div class="col-12">
+                    <Label>API</Label>
                     <pre class="prettyprint lang-javascript">
     // Build Angular app with: ng b
     // Put /dist folder into this directory
@@ -68,10 +85,52 @@
                     </pre>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <Label>Serve Angular App</Label>
+                    <pre class="prettyprint lang-javascript">
+    // Build Angular app with: ng b
+    // Put /dist folder into this directory
+    
+    const express = require('express');
+    const path = require('path');
+    
+    const app = new express();
+    const port = 3000;
+    
+    app.use(express.static(__dirname + '/dist'));
+    
+    app.get('*', function (_req, res) {
+        res.sendFile(path.join(__dirname + '/dist/index.html'));
+    });
+    
+    app.listen(port, () => console.log(`Server listening on ${port}`));
+                    </pre>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <Label>Connect to MongoClient</Label>
+                    <pre class="prettyprint lang-javascript">
+	const MongoClient = require('mongodb').MongoClient;
+
+	const uri = 'mongodb+srv://dyrestium:pw@cluster0-7yq8x.mongodb.net/test?retryWrites=true&w=majority';
+
+	MongoClient.connect(uri, (_err, db) => {
+	  const dbo = db.db('bankingApp');
+	  dbo.collection('users').findOne({ firstName: 'Oscar' }, (err, result) => {
+		if (err) throw err;
+		console.log(result.firstName);
+	  });
+	  db.close();
+	});
+                    </pre>
+                </div>
+            </div>
         </section>
         <section id="javascript">
             <h2 class="text-danger">Javascript</h2>
-            
+
         </section>
         <hr role="separator">
         <section id="typescript">
@@ -222,6 +281,19 @@
         <hr role="separator">
         <section id="angular">
             <h2 class="text-primary">Angular</h2>
+            <section id="cli">
+                <h4>CLI Commands</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <pre class="prettyprint lang-typescript">
+    ng new my-sassy-app --style=scss
+    
+    // Use sass in existing App
+    ng config schematics.@schematics/angular:component.styleext scss
+                        </pre>
+                    </div>
+                </div>
+            </section>
             <section id="services">
                 <h4>Services</h4>
                 <div class="row">
