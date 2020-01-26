@@ -56,6 +56,55 @@
                     </pre>
                 </div>
             </div>
+						            <div class="row">
+                <div class="col-12">
+                    <Label>CSS Grid</Label>
+                    <pre class="prettyprint">
+	&lt;style>
+		.wrapper {
+			display: grid;
+			
+			/* Gap between rows and cols */
+			gap: 1em;
+			
+			/* Partition of every row */
+			grid-template-columns: 1fr 1fr;
+			/* different syntax
+			grid-template-columns: repeat(2, 1fr) */
+			
+			/* Fixed height of all Rows*/
+			grid-auto-rows: 5em;
+			
+			/* Min height of row with auto scaling */
+			grid-auto-rows: minmax(5em, auto);
+		}
+		
+		.wrapper>div.box-c{
+			/* Place box-c in the second row (it already this, this is redundant here) */
+			grid-row: 2;
+			
+			/* Use columns from 1 until 3.
+			This div will now span across 2 columns
+			That's the entire length of the wrapper container 
+			because row was partitioned into two cols with (1fr 1fr)  */
+			grid-column: 1 - 3;
+		}
+	&lt;/style>
+
+	&lt;body>
+		&lt;div class="container">
+			&lt;div class="wrapper">
+				&lt;div>&lt;/div>
+				&lt;div>&lt;/div>
+				&lt;div class="box-c">&lt;/div>
+			&lt;/div>
+		&lt;/div>
+	&lt;/body>
+
+	&lt;/html>
+                    </pre>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <Label><code>sass input.scss output.css</code></Label><br>
