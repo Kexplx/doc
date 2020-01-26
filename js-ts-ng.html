@@ -38,7 +38,24 @@
 <body>
     <div class="container mt-5">
         <section id="sass">
-            <h2 class="text-info">Sass</h2>
+            <h2 class="text-info">Sass / CSS</h2>
+			            <div class="row">
+                <div class="col-12">
+                    <Label>Media Query breakpoints</Label>
+                    <pre class="prettyprint">
+	/* General Styles here */
+	/* Layouts that apply for smallest screens @media (min-width: 0) { ... } here */
+	
+	@media (min-width: 576px) {}
+	
+	@media (min-width: 768px) {}
+	
+	@media (min-width: 992px) {}
+	
+	@media (min-width: 1200px) {}
+                    </pre>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <Label><code>sass input.scss output.css</code></Label><br>
@@ -62,26 +79,53 @@
             <code>express my-app</code>
             <br>
             <code>"start": "node -r esm .\\app.js"</code>
-            <div class="row">
+			<div class="row">
                 <div class="col-12">
                     <Label>API</Label>
                     <pre class="prettyprint lang-javascript">
-    // Build Angular app with: ng b
-    // Put /dist folder into this directory
-    
-    const express = require('express');
-    const path = require('path');
-    
-    const app = new express();
-    const port = 3000;
-    
-    app.use(express.static(__dirname + '/dist'));
-    
-    app.get('*', function (_req, res) {
-        res.sendFile(path.join(__dirname + '/dist/index.html'));
-    });
-    
-    app.listen(port, () => console.log(`Server listening on ${port}`));
+	const express = require('express');
+
+	const app = express()
+		.use(express.urlencoded())
+		.use(express.json());
+
+	const port = 3000;
+
+	// localhost:3000
+	// localhost:3000/
+	app.get('', (req, res) => {
+		res.send({ some: 'json' });
+		// res.send('&lt;p>some html&lt;p>');
+		// res.status(404).send('Sorry, cant find that');
+
+		// error
+		res.send('something else');
+
+		res.end();
+	});
+
+	// localhost:3000/students/31?use=1
+	app.get('/students/:id', (req, res) => {
+		// req.params.id
+		// req.query.use
+
+		res.end();
+	});
+
+	app.post('/', (req, res) => {
+		// request.body is the post body as js object.
+		// request.body.name ...
+
+		res.end();
+	});
+
+	// localhost:3000/dassakdapsdaks
+	app.get('**', (req, res) => {
+		res.status(404);
+		res.end();
+	});
+
+	app.listen(port, 'localhost', () => console.log('Listening on Port ' + port));
                     </pre>
                 </div>
             </div>
@@ -110,31 +154,55 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <Label>Connect to MongoClient</Label>
+					<b>
+                    <Label>Mongodb</Label><br></b>
+					<Label>MongoDb im atlas: clusterpassword im query string ist nicht der mongodb account name</Label>
+					<Label>Um direkt auf Windows mit DB zu arbeiten: Shell runterladen, mongoinstallpath/bin zu Path Variable hinzufügen</Label>
+					<Label>mongo "mongodb+srv://cluster0-7yq8x.mongodb.net/test"  --username dyrestium</Label>
                     <pre class="prettyprint lang-javascript">
-	const MongoClient = require('mongodb').MongoClient;
+	// const MongoClient = require('mongodb').MongoClient;
+	import { MongoClient } from 'mongodb';
 
-	const uri = 'mongodb+srv://dyrestium:pw@cluster0-7yq8x.mongodb.net/test?retryWrites=true&w=majority';
+	const uri = 'mongodb+srv://dyrestium:?@cluster0-7yq8x.mongodb.net/test?retryWrites=true&w=majority';
 
-	MongoClient.connect(uri, (_err, db) => {
+	MongoClient.connect(uri, (err, db) => {
+	  if (err) throw err;
 	  const dbo = db.db('bankingApp');
-	  dbo.collection('users').findOne({ firstName: 'Oscar' }, (err, result) => {
-		if (err) throw err;
-		console.log(result.firstName);
-	  });
+
+	  dbo.collection('users').updateOne({ firstName: /Oscar/ }, { $set: { firstName: 'Updated' } });
+
+	  dbo.collection('users')
+		.find({ firstName: /Osc/g })
+		.toArray()
+		.then((res) => {
+		  console.log(res);
+		});
+
 	  db.close();
 	});
                     </pre>
                 </div>
             </div>
         </section>
-        <section id="javascript">
-            <h2 class="text-danger">Javascript</h2>
-
-        </section>
         <hr role="separator">
         <section id="typescript">
             <h2 class="text-info">Typescript</h2>
+			  <div class="row">
+                <div class="col-12">
+                    <Label>Hash</Label><br>
+					<code>npm i js-sha256</code>
+                    <pre class="prettyprint lang-javascript">
+	import { sha256 } from "js-sha256";
+
+	// ca66a852a9e96c40f4cce7972d994914909b646b2564e8d25dd4003656b3dd63
+	let x = sha256('Oscar');
+
+	// Node..
+	const sha256 = require("js-sha256");
+	var x = sha256('Oscar');
+                    </pre>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <Label>Get Date 1</Label>
@@ -454,11 +522,14 @@
         // If the Route below the current parent changes, while we are in that parent
         // students/1 -> students/2 
         // The url has to be subscribed to to get notify of that change
-        this.route.params.subscribe(
-            (params: Params) => {
-                id = params.id;
-            }
-          );
+		this.route.params.subscribe((params: Params) => {
+			this.id = params.id;
+		  }
+		);
+
+		this.route.queryParams.subscribe((queryParams: Params) => {
+		  this.queryParam = queryParams.use;
+		});
     }
                         </pre>
                     </div>
