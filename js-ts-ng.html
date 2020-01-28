@@ -136,7 +136,8 @@
 
 	const app = express()
 		.use(express.urlencoded())
-		.use(express.json());
+		.use(express.json())
+		.use(cors);
 
 	const port = 3000;
 
@@ -175,6 +176,12 @@
 	});
 
 	app.listen(port, 'localhost', () => console.log('Listening on Port ' + port));
+	
+	function cors(req, res, next) {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		next();
+	};
                     </pre>
                 </div>
             </div>
@@ -774,6 +781,31 @@
                     </div>
                 </div>
             </section>
+			<section>
+				<h4>HTTP</h4>
+				<div class="row">
+					<div class="col-12">
+					<pre class="prettyprint lang-typescript">
+	constructor(private http: HttpClient) { }		
+
+    this.http.get<Student[]>('http://localhost:3001')
+      // Pipe function only runs when no error (Server returns 4** code).
+      .pipe(map(responseData => {
+        const result: Student[] = [];
+        // ...
+        return result;
+      })).
+      subscribe((responseData: Student[]) => {
+        //
+      }, error => {
+        // error.status  -> 404
+        // error.statusText -> Not Found
+        // error.error -> response.send('My Node Message')
+      });	
+					</pre>
+					</div>
+				</div>
+			</section>
         </section>
     </div>
 </body>
