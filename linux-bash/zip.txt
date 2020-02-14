@@ -1,0 +1,2 @@
+tar -czf myOut myin.doc
+tar -xzf myOut

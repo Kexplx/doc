@@ -1,0 +1,1 @@
+mongo "mongodb+srv://cluster0-7yq8x.mongodb.net/test"  --username dyrestium

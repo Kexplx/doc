@@ -3,18 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <title>TS Doc</title>
@@ -29,30 +22,252 @@
             white-space: pre-wrap;
             background-color: #f6f8fa;
         }
-
+        
         mark {
             font-size: 13px;
             font-family: 'Courier New', Courier, monospace;
         }
-
+        
         html {
             scroll-behavior: smooth;
         }
     </style>
 </head>
 
+
 <body>
     <div class="container mt-5">
-        <section id="javascript">
-            <h2 class="text-danger">Javascript</h2>
+        <section id="sass">
+            <h2 class="text-info">Sass / CSS</h2>
+			            <div class="row">
+                <div class="col-12">
+                    <Label>Media Query breakpoints</Label>
+                    <pre class="prettyprint">
+	/* General Styles here */
+	/* Layouts that apply for smallest screens @media (min-width: 0) { ... } here */
+	
+	@media (min-width: 576px) {}
+	
+	@media (min-width: 768px) {}
+	
+	@media (min-width: 992px) {}
+	
+	@media (min-width: 1200px) {}
+                    </pre>
+                </div>
+            </div>
+						            <div class="row">
+                <div class="col-12">
+                    <Label>CSS Grid</Label>
+                    <pre class="prettyprint">
+	&lt;style>
+		.wrapper {
+			display: grid;
+			
+			/* Gap between rows and cols */
+			gap: 1em;
+			
+			/* Partition of every row */
+			grid-template-columns: 1fr 1fr;
+			/* different syntax
+			grid-template-columns: repeat(2, 1fr) */
+			
+			/* Fixed height of all Rows*/
+			grid-auto-rows: 5em;
+			
+			/* Min height of row with auto scaling */
+			grid-auto-rows: minmax(5em, auto);
+		}
+		
+		.wrapper>div.box-c{
+			/* Place box-c in the second row (it already this, this is redundant here) */
+			grid-row: 2;
+			
+			/* Use columns from 1 until 3.
+			This div will now span across 2 columns
+			That's the entire length of the wrapper container 
+			because row was partitioned into two cols with (1fr 1fr)  */
+			grid-column: 1 - 3;
+
+			/*Bezieht sich auf das element in einer Reihe. Nicht die Reihe selbst*/
+            justify-self: end;
+		}
+	&lt;/style>
+
+	&lt;body>
+		&lt;div class="container">
+			&lt;div class="wrapper">
+				&lt;div>&lt;/div>
+				&lt;div>&lt;/div>
+				&lt;div class="box-c">&lt;/div>
+			&lt;/div>
+		&lt;/div>
+	&lt;/body>
+
+	&lt;/html>
+                    </pre>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
-                    <Label><small>Get Date 1</i></small></Label>
+                    <Label><code>sass input.scss output.css</code></Label><br>
+                    <Label><code>sass ./:./someDirectory --no-source-maps</code></Label>
+                    <pre class="prettyprint">
+    //_colors.scss
+    $primary-color: rgb(201, 201, 201);
+
+    // main.scss
+    @import './colors';
+
+    body {
+        color: $primary-color;
+    }
+                    </pre>
+                </div>
+            </div>
+        </section>
+        <section id="node">
+            <h2 class="text-success">Node.js</h2>
+            <code>express my-app</code>
+            <br>
+            <code>"start": "node -r esm .\\app.js"</code>
+			<div class="row">
+                <div class="col-12">
+                    <Label>API</Label>
+                    <pre class="prettyprint lang-javascript">
+	const express = require('express');
+
+	const app = express()
+		.use(express.urlencoded())
+		.use(express.json())
+		.use(cors);
+
+	const port = 3000;
+
+	// localhost:3000
+	// localhost:3000/
+	app.get('', (req, res) => {
+		res.send({ some: 'json' });
+		// res.send('&lt;p>some html&lt;p>');
+		// res.status(404).send('Sorry, cant find that');
+
+		// error
+		res.send('something else');
+
+		res.end();
+	});
+
+	// localhost:3000/students/31?use=1
+	app.get('/students/:id', (req, res) => {
+		// req.params.id
+		// req.query.use
+
+		res.end();
+	});
+
+	app.post('/', (req, res) => {
+		// request.body is the post body as js object.
+		// request.body.name ...
+
+		res.end();
+	});
+
+	// localhost:3000/dassakdapsdaks
+	app.get('**', (req, res) => {
+		res.status(404);
+		res.end();
+	});
+
+	app.listen(port, 'localhost', () => console.log('Listening on Port ' + port));
+	
+	function cors(req, res, next) {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		next();
+	};
+                    </pre>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <Label>Serve Angular App</Label>
+                    <pre class="prettyprint lang-javascript">
+    // Build Angular app with: ng b
+    // Put /dist folder into this directory
+    
+    const express = require('express');
+    const path = require('path');
+    
+    const app = new express();
+    const port = 3000;
+    
+    app.use(express.static(__dirname + '/dist'));
+    
+    app.get('*', function (_req, res) {
+        res.sendFile(path.join(__dirname + '/dist/index.html'));
+    });
+    
+    app.listen(port, () => console.log(`Server listening on ${port}`));
+                    </pre>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+					<b>
+                    <Label>Mongodb</Label><br></b>
+					<Label>MongoDb im atlas: clusterpassword im query string ist nicht der mongodb account name</Label>
+					<Label>Um direkt auf Windows mit DB zu arbeiten: Shell runterladen, mongoinstallpath/bin zu Path Variable hinzufügen</Label>
+					<Label>mongo "mongodb+srv://cluster0-7yq8x.mongodb.net/test"  --username dyrestium</Label>
+                    <pre class="prettyprint lang-javascript">
+	// const MongoClient = require('mongodb').MongoClient;
+	import { MongoClient } from 'mongodb';
+
+	const uri = 'mongodb+srv://dyrestium:?@cluster0-7yq8x.mongodb.net/test?retryWrites=true&w=majority';
+
+	MongoClient.connect(uri, (err, db) => {
+	  if (err) throw err;
+	  const dbo = db.db('bankingApp');
+
+	  dbo.collection('users').updateOne({ firstName: /Oscar/ }, { $set: { firstName: 'Updated' } });
+
+	  dbo.collection('users')
+		.find({ firstName: /Osc/g })
+		.toArray()
+		.then((res) => {
+		  console.log(res);
+		});
+
+	  db.close();
+	});
+                    </pre>
+                </div>
+            </div>
+        </section>
+        <hr role="separator">
+        <section id="typescript">
+            <h2 class="text-info">Typescript</h2>
+			  <div class="row">
+                <div class="col-12">
+                    <Label>Hash</Label><br>
+					<code>npm i js-sha256</code>
+                    <pre class="prettyprint lang-javascript">
+	import { sha256 } from "js-sha256";
+
+	// ca66a852a9e96c40f4cce7972d994914909b646b2564e8d25dd4003656b3dd63
+	let x = sha256('Oscar');
+
+	// Node..
+	const sha256 = require("js-sha256");
+	var x = sha256('Oscar');
+                    </pre>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <Label>Get Date 1</Label>
                     <pre class="prettyprint lang-javascript">
     // 12.1.2020 13:30:7
-    function getDate(addTime: boolean = true): string {
-        const d = new Date();
-    
+    function parseDate(d: Date, addTime: boolean = true): string {
         return `${d.getDate()}.${(d.getMonth() + 1)}.${d.getFullYear()}` 
                + (addTime ? ` ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}` : '');
     }
@@ -61,12 +276,10 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <Label><small>Get Date 2</i></small></Label>
+                    <Label>Get Date 2</Label>
                     <pre class="prettyprint lang-javascript">
     // 12.01.2020 13:30:07
-    function getDate(addTime: boolean = true): string {
-        const d = new Date();
-    
+    function parseDate(d: Date, addTime: boolean = true): string {
         return addPadding( `${d.getDate()}.${(d.getMonth() + 1)}.${d.getFullYear()}` 
                + (addTime ? ` ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}` : ''), addTime);
     }
@@ -100,10 +313,20 @@
                     </pre>
                 </div>
             </div>
-        </section>
-        <hr role="separator">
-        <section id="typescript">
-            <h2 class="text-info">Typescript</h2>
+            <div class="row">
+                <div class="col-12">
+                    <label>InsertAtIndex</label>
+                    <pre class="prettyprint lang-typescript">
+    function insertAt(index: any, arr: any[], ...toInsert: any[]) {
+        const left  = arr.slice(0, index);
+        const right = arr.slice(index);
+
+        return left.concat(toInsert)
+                   .concat(right);
+    }
+                    </pre>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <label>Get age</label>
@@ -184,6 +407,20 @@
         <hr role="separator">
         <section id="angular">
             <h2 class="text-primary">Angular</h2>
+            <section id="cli">
+                <h4>CLI Commands</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <pre class="prettyprint lang-typescript">
+    ng new my-sassy-app --style=scss
+    // Github Pages
+    ng build —prod —base-href="https://kexplx.github.io/tobigb/
+    // Use sass in existing App
+    ng config schematics.@schematics/angular:component.styleext scss
+                        </pre>
+                    </div>
+                </div>
+            </section>
             <section id="services">
                 <h4>Services</h4>
                 <div class="row">
@@ -252,32 +489,55 @@
                 <h4>Routing</h4>
                 <div class="row">
                     <div class="col-12">
-                        <Label><small>Define routes - <i>app.module.ts</i></small></Label>
+                        <Label><small>Define routes in <i>app-routing.module.ts</i> use in
+                                <i>app.module.ts</i></small></Label>
                         <pre class="prettyprint lang-typescript">
-    import { Routes, RouterModule } from '@angular/router';
-    
-    // .................................................
     const appRoutes: Routes = [
-        {path: 'home', component: StudentListComponent},
-        {path: 'add', component: AddComponent},
-        {path: 'students/:id', component: StudentDetailsComponent},
-        {path: 'not-found', component: NotFoundComponent},
-        {path: '', redirectTo: '/home', pathMatch: 'full'},
-        // Has to be last route defined.
-        {path: '**', redirectTo: '/not-found'}
+    {path: 'students', component: StudentListComponent, children: [
+        {path: ':id', component: StudentDetailComponent}
+    ]},
+    {path: '', redirectTo: 'students', pathMatch: 'full'},
+    {path: '**', component: NotFoundComponent}
     ];
-
-    // .................................................
+    
+    @NgModule({
+    declarations: [],
     imports: [
-        // ...
-        RouterModule.forRoot(appRoutes)
-    ],    
+        CommonModule,
+        <mark>RouterModule.forRoot(appRoutes)</mark>
+    ],
+    exports: [
+        <mark>RouterModule</mark>
+    ]
+    })
+    export class AppRoutingModule { }   
+
+    // .................................................................
+
+    @NgModule({
+        declarations: [
+          AppComponent,
+          StudentDetailComponent,
+          StudentListComponent,
+          NotFoundComponent,
+        ],
+        imports: [
+          FormsModule,
+          BrowserModule,
+          <mark>AppRoutingModule</mark>
+        ],
+        providers: [],
+        bootstrap: [AppComponent]
+      })
+      export class AppModule { }
+
                         </pre>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <Label><small>Render Route based components into template - <i>app.component.html</i></small></Label>
+                        <Label><small>Render Route based components into template -
+                                <i>app.component.html</i></small></Label>
                         <pre class="prettyprint lang-html">
     &lt;!-- On Load with right URL components will be rendered into &lt;router-outlet>&lt;/router-outlet> -->
     &lt;router-outlet>&lt;/router-outlet>
@@ -297,7 +557,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <Label><small>Access route and query params programmaticly</small></Label>
+
+                        <Label><small>Access route and query params programmaticly. All the query params
+                                will be strings initially (Careful when looking for id:number === queryParam:string)
+                            </small></Label>
+
                         <pre class="prettyprint lang-typescript">
     import { ActivatedRoute } from '@angular/router';
     // .................................................
@@ -313,11 +577,297 @@
     
         // Access .../...?showId query param and parse to boolean.
         const param = this.route.snapshot.queryParams.showId === '1' ? true : false;
+
+        // If the Route below the current parent changes, while we are in that parent
+        // students/1 -> students/2 
+        // The url has to be subscribed to to get notify of that change
+		this.route.params.subscribe((params: Params) => {
+			this.id = params.id;
+		  }
+		);
+
+		this.route.queryParams.subscribe((queryParams: Params) => {
+		  this.queryParam = queryParams.use;
+		});
     }
                         </pre>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Navigate programmaticly</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { ActivatedRoute, Router } from '@angular/router';
+    // .................................................
+    constructor(private route: ActivatedRoute, private route: Router) { }
+
+    navigateAbsolute() {
+        // servers/edit?myParam=ay#lmao
+        this.router.navigate(['/servers', 'edit'], 
+            {queryParams: {myParam: 'ay'}, fragment: 'lmao'});
+    }
+
+    navigateRelative() {
+        // .../edit?paramOfCurrentRoute=1
+        this.router.navigate(['edit'], 
+            {relativeTo: this-route, queryParamsHandling: 'preserve'});
+    }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Can Activate Guards</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { Injectable } from '@angular/core';
+    import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+    import { Observable } from 'rxjs';
+    
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class AuthGuardService implements CanActivate {
+    
+        constructor(private router: Router) { }
+    
+        canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
+        return new Promise<boolean>((resolve, reject) => {
+            // Make API call
+            // Call resolve(), reject()
+        }).then((result) => {
+            // Route is allowed.
+            return true;
+        }).catch((result) => {
+            // Route is not allowed, redirect accordingly.
+            this.router.navigate(['/not-allowed']);
+            return false;
+        });
+        }
+    }
+
+    // ................................................
+
+    const appRoutes: Routes = [
+    {path: 'students', component: StudentListComponent, children: [
+    {path: ':id', component: StudentDetailComponent, <mark>canActivate: [AuthGuardService]}</mark>
+    ]},
+    {path: 'not-allowed', component: NotAllowedComponent},
+    {path: '', redirectTo: 'students', pathMatch: 'full'},
+    {path: '**', component: NotFoundComponent}
+    ];
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Can Deactivate Guards. The interface and the service are boilerplate.
+                            </small></Label>
+                        <pre class="prettyprint lang-typescript">
+    import { Observable } from 'rxjs';
+
+    export interface CanDeactivateComponent {
+        canDeactivate(): Observable&lt;boolean> | Promise&lt;boolean> | boolean;
+    }
+
+    // ..........................................
+
+    import { Injectable } from '@angular/core';
+    import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+    import { CanDeactivateComponent } from './canDeactivateComponent';
+    import { Observable } from 'rxjs';
+    
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class CanDeactivateGuardService implements CanDeactivate&lt;CanDeactivateComponent> {
+        canDeactivate(component: CanDeactivateComponent,
+                    currentRoute: ActivatedRouteSnapshot,
+                    currentSate: RouterStateSnapshot,
+                    nextState?: RouterStateSnapshot):
+            Observable&lt;boolean> | Promise&lt;boolean> | boolean {
+                return component.canDeactivate();
+            }
+    
+        constructor() { }
+    }
+
+    // .........................................
+
+    export class MyComponent CanDeactivateComponent {
+        // ....
+
+        canDeactivate(): boolean | Promise&lt;boolean> | Observable&lt;boolean> {
+          // Check if Route should be left.
+
+          // return true;
+          // return false;
+          // return confirm('Do you want to discard the changes?');
+        }
+      }
+
+    // .........................................
+
+    const appRoutes: Routes = [
+        {path: 'students', component: StudentListComponent, <mark>canDeactivate: [CanDeactivateGuardService]</mark>, children: [
+        {path: ':id', component: StudentDetailComponent, canActivate: [AuthGuardService]}
+        ]},
+        {path: 'not-allowed', component: NotAllowedComponent},
+        {path: '', redirectTo: 'students', pathMatch: 'full'},
+        {path: '**', component: NotFoundComponent}
+    ];
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Pass static data to component on route load.</small></Label>
+                        <pre class="prettyprint lang-typescript">
+    {path: 'some-route', component: MyComponent, data: {myMessage: 'Page not found'}},
+
+    // .....
+
+    // In the component ...
+    ngOnInit() {
+        this.errorMessageToBind = this.route.snapshot.data.myMessage;
+    }
+                        </pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <Label><small>Use Resolver to preload data before the component is rendered. <br>
+                                This is an alternative to fetching that data in the onInit() method of said component.
+                                <br>
+                                When using a resolver, the component often no longer needs a service to get the data
+                                from.
+                                The Resolver will throw the data into the route.data object.
+                            </small></Label>
+                        <pre class="prettyprint lang-typescript">
+    @Injectable({
+        providedIn: 'root'
+        })
+        export class StudentResolverService implements Resolve&lt;Student> {
+        
+        constructor(public studentService: StudentService) {}
+        
+        resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+            Observable&lt;Student> | Promise&lt;Student> | Student {
+            return this.studentService.getStudentById(+route.params.id);
+            }
+        }
+
+    // .................................
+
+    @Component({
+        selector: 'app-student-detail',
+        templateUrl: './student-detail.component.html',
+        styleUrls: ['./student-detail.component.css']
+        })
+        export class StudentDetailComponent implements OnInit {
+        student: Student;
+        constructor(private route: ActivatedRoute) {}
+        
+        ngOnInit() {
+            this.route.data.subscribe(
+            (data: Data) => {
+                this.student = data.student;
+            }
+            );
+        }
+    }    
+
+    // .................................
+
+    {path: ':id', component: StudentDetailComponent, <mark>resolve: {student: StudentResolverService}</mark>, canActivate: [AuthGuardService]}
+                        </pre>
+                    </div>
+                </div>
             </section>
+			<section>
+				<h4>HTTP</h4>
+				<div class="row">
+					<div class="col-12">
+					<pre class="prettyprint lang-typescript">
+	// HTTP Service...	
+	constructor(private http: HttpClient) { }	
+	
+	let queryParams = new HttpParams();
+	queryParams = queryParams.append('param1', 'value1');
+	queryParams = queryParams.append('param2', 'value2');
+    return this.http.get<Student[]>('http://localhost:3001', 
+		{
+			observe: 'body', // Get entire response with 'response',
+			headers: new HttpHeaders({'MyHeader': 'Hello'}, {'abcd': 'ab'}),
+			params: queryParams,
+			responseType: 'json' // default
+		})
+      // Pipe function only runs when no error (Server returns 4** code).
+      .pipe(map(responseData => {
+        const result: Student[] = [];
+        // ...
+        return result;
+      }), catchError(errorRes => {
+		// Send to analytics...
+		
+		// Yields the error to the subscribe below...
+		return throwError(errorRes);
+	  }), tap(event => {
+		if(event.type === HttpEventType.Response) {
+			// Response was received
+			// event.body can be accessed
+		}
+		
+		if(event.type === HttpEventType.Sent) {
+			// Request was sent
+		}
+	  });
+
+	  // Components
+	service.makeGet(). // gets the observable
+    subscribe((responseData: Student[]) => {
+        // ...
+      }, error => {
+        // error.status  -> 404
+        // error.statusText -> Not Found
+        // error.error -> response.send('My Node Message')
+      });	
+	  
+	  // ..............................................
+	  import {HttpInterceptor, HttpRequest} form '@angular/common/http'
+	  
+	  // Runs code right before a http request leaves the app
+	  export class AuthInterCeptorService implements HttpInterceptor {
+		intercept(req: HttpRequest<any>, next: HttpHandler) {
+			const modifiedRequest = req.clone({headers: req.headers.append('myheader': 'value')});
+			
+			next.handle(modifiedRequest).pipe(tap(event => {
+				if(event.type === HttpEventType.Response) {
+					// Response arrived
+					// event.body
+				}
+			}));
+		}
+	  }
+	  
+	  
+	  @NgModel({
+		// ...
+		
+		providers: 
+		[
+			{
+				provide: HTTP_INTERCEPTORS,
+				useClass: AuthInterCeptorService,
+				multi: true
+			}
+		]
+	  }
+	  
+					</pre>
+					</div>
+				</div>
+			</section>
         </section>
     </div>
 </body>
