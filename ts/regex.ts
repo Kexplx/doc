@@ -11,11 +11,6 @@ console.log(result);
 
 // ----------------------------------------------------------
 
-let reg = new RegExp(/<h1>(.*)<\/h1><h2>(.*)<\/h2>/g);
-let text = "<h1>Hello</h1><h2>World</h2>";
-
-let result = reg.exec(text);
-
+const regex = /Note (\d)/;
+const result = regex.exec('Note 1');
 // result[1] - first group
-// result[2] - second group
-// ..

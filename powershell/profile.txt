@@ -1,0 +1,23 @@
+function createNgProject { 
+	git clone https://github.com/Kexplx/ng-template.git
+	cd ./ng-template
+	Remove-Item -Path .git -Force -Recurse
+	git init
+	git add .
+	git add .
+	git commit -m"initial commit"
+	npm install
+}
+New-Alias -Name ngnew -Value createNgProject -Force -Option AllScope
+
+function createNgProject { 
+	git clone https://github.com/Kexplx/node-template.git;
+	cd ./node-template;
+	Remove-Item -Path .git -Force -Recurse
+	git init
+	git add .
+	git add .
+	git commit -m"initial commit"
+	npm install
+}
+New-Alias -Name nodenew -Value createNgProject -Force -Option AllScope
