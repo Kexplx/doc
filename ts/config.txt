@@ -1,0 +1,4 @@
+
+tsc //ohne Parameter transpiliert alle .ts Dateien im gesamten Verzeichnis (rekursiv) mit der nähersten tsconfig datei.
+
+tsc src/hello.ts // ignoriert alle tsc dateien

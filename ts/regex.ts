@@ -14,3 +14,13 @@ console.log(result);
 const regex = /Note (\d)/;
 const result = regex.exec('Note 1');
 // result[1] - first group
+
+// ----------------------------------------------------------
+const regex = /[A-Z]/g;
+const s = "OsCaR";
+let result;
+while ((result = regex.exec(s)) != null) {
+  console.log(result[0]);
+}
+
+// O C R
