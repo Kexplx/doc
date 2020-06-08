@@ -21,13 +21,13 @@ h3 {
     padding: 0 10px 0 10px;
 }
 
-.item {
+.container-item {
     display: grid;
     grid-template-columns: 120px 1fr;
     gap: 0 10px;
 }
 
-.item:not(:first-child) {
+.container-item:not(:first-child) {
     margin-top: 10px;
 }
 

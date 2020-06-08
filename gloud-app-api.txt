@@ -1,0 +1,9 @@
+1. create a project
+
+gcloud projects create nodeapi1235
+
+2. deploy project current folder to specific project id
+gcloud app deploy --project nodeapi3
+
+
+current folder needs to have app.yaml file
