@@ -1,0 +1,9 @@
+//  Open $profile, create if not exists
+
+function openGoogleChrome {
+    Start-Process "chrome.exe"
+}
+
+Set-Alias chrome openGoogleChrome
+
+// execute script

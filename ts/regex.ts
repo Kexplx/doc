@@ -18,7 +18,7 @@ const result = regex.exec('Note 1');
 // ----------------------------------------------------------
 const regex = /[A-Z]/g;
 const s = "OsCaR";
-let result;
+let result: RegExpExecArray;
 while ((result = regex.exec(s)) != null) {
   console.log(result[0]);
 }

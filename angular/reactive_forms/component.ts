@@ -1,45 +1,38 @@
-import { Component, ViewChild, ElementRef, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
 export class AppComponent implements OnInit {
-  userForm: FormGroup;
+  registrationForm: FormGroup;
 
-  ngOnInit() {
-    this.userForm = new FormGroup({
-      username: new FormControl(null, [this.usernameStartsWithO, Validators.required]),
-      email: new FormControl(null, Validators.required)
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.registrationForm = this.formBuilder.group({
+      firstName: ['', this.forbiddenPatternValidator(/^O/)],
     });
 
-    this.userForm.valueChanges.subscribe(
-      value =>  {
-        // ...
-      }
-    );
-
-    this.userForm.statusChanges.subscribe(
-      status =>  {
-        // ...
-      }
-    );
+    this.patchDefaultValues();
   }
 
-  onSubmit() {
+  onSubmit(): void {
+    // Submit the form ...
+
+    this.resetForm();
   }
 
-  usernameStartsWithO(control: FormControl): {[s: string]: boolean} {
-    if (!control.value) {
-      return null;
-    }
+  resetForm(): void {
+    this.registrationForm.reset();
+    this.patchDefaultValues();
+  }
 
-    if (String(control.value).startsWith('O')) {
-      return {usernameStartsWithO: true};
-    }
+  patchDefaultValues(): void {
+    this.registrationForm.patchValue({
+      firstName: 'Default',
+    });
+  }
 
-    return null;
+  forbiddenPatternValidator(pattern: RegExp): ValidatorFn {
+    return ({ value }: AbstractControl): { [key: string]: { pattern: RegExp } } | null => {
+      const isMatch = pattern.test(String(value));
+
+      return isMatch ? { forbiddenPattern: { pattern } } : null;
+    };
   }
 }
