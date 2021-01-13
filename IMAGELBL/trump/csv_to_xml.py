@@ -3,9 +3,6 @@ import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
 
-
-# taken from https://github.com/datitran/raccoon_dataset
-
 def xml_to_csv(path):
     xml_list = []
     for xml_file in glob.glob(path + '/*.xml'):
@@ -26,13 +23,11 @@ def xml_to_csv(path):
     xml_df = pd.DataFrame(xml_list, columns=column_name)
     return xml_df
 
-
-def main(): # this is the part we change to work with our setup
+def main():
     for directory in ['train','test']:
-        image_path = os.path.join(os.getcwd(), 'img/{}'.format(directory))
+        image_path = os.path.join(os.getcwd(), 'images/{}'.format(directory))
         xml_df = xml_to_csv(image_path)
         xml_df.to_csv('data/{}_labels.csv'.format(directory), index=None)
         print('Successfully converted xml to csv.')
-
 
 main()
