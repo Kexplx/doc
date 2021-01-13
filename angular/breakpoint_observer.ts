@@ -11,48 +11,46 @@ ngOnInit(): void {
 
 
 //-----------------------------------
-
-
-
-this.breakpointObserver
-  .observe('(max-width: 900px)')
-  .subscribe(({ matches }) => (this.isSmallScreen = matches));
-
-
-
-import { Injectable } from "@angular/core";
-import { BreakpointObserver } from "@angular/cdk/layout";
-import { Subject, BehaviorSubject } from "rxjs";
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export enum ScreenSize {
-  Small = "(max-width: 600px)",
-  Medium = "(max-width: 900px)",
-  Large = "(min-width: 900px)"
+  Small = '(max-width: 600px)',
+  Medium = '(max-width: 900px)',
+  Large = '(min-width: 900px)',
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ScreenSizeService {
-  private _screenSize$ = new BehaviorSubject<ScreenSize>(null);
+  private screenSizeSubject = new BehaviorSubject<ScreenSize | null>(null);
 
-  get screenSize$() {
-    return this._screenSize$.asObservable();
-  }
+  /**
+   *  Emits a `ScreenSize` each time the view width changes and matches a breakpoint.
+   *
+   * Small = (max-width: 600px),
+   * Medium = (max-width: 900px),
+   * Large = (min-width: 900px)
+   */
+  screenSize$ = this.screenSizeSubject.asObservable();
 
   constructor(private breakpointObserver: BreakpointObserver) {
+    this.subscribeToScreenSizeChanges();
+  }
+
+  private subscribeToScreenSizeChanges(): void {
     const { Small, Medium, Large } = ScreenSize;
 
-    this.breakpointObserver
-      .observe([Small, Medium, Large])
-      .subscribe(({ breakpoints }) => {
-        let screenSize: ScreenSize = Large;
+    // No need to unsubscribe. This subscription is required until the app is stopped.
+    this.breakpointObserver.observe([Small, Medium, Large]).subscribe(({ breakpoints }) => {
+      const isSmallScreen = breakpoints[Small];
+      const isMediumScreen = breakpoints[Medium];
 
-        if (breakpoints[Small]) {
-          screenSize = Small;
-        } else if (breakpoints[Medium]) {
-          screenSize = Medium;
-        }
+      const screenSize = isSmallScreen ? Small : isMediumScreen ? Medium : Large;
 
-        this._screenSize$.next(screenSize);
-      });
+      this.screenSizeSubject.next(screenSize);
+    });
   }
 }

@@ -1,7 +1,7 @@
 https://github.com/angular-eslint/angular-eslint
 
 1. ng add @angular-eslint/schematics
-2. Add .eslintrc.json
+2. Add .eslintrc.json (copy from here)
 4. Add the .eslintignore (this is mainly for VSCode since files will be filtered by NPM command anyways)
 5. Make sure .prettierrc matches the rules from eslint.
 6. npm un tslint codelyzer

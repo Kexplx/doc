@@ -1,0 +1,26 @@
+<annotation>
+	<folder>img</folder>
+	<filename>2Q__ (4).jpg</filename>
+	<path>C:\Users\oscar\Desktop\trump\img\2Q__ (4).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>299</width>
+		<height>168</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>trump</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>5</xmin>
+			<ymin>4</ymin>
+			<xmax>140</xmax>
+			<ymax>154</ymax>
+		</bndbox>
+	</object>
+</annotation>
