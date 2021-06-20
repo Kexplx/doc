@@ -1,6 +1,5 @@
 import { PerformanceObserver, performance } from "perf_hooks";
-import { writeFileSync } from "fs";
-import { nanoid } from "nanoid";
+import { appendFileSync, unlink } from "fs";
 
 interface Measurement {
   name: string;
@@ -8,26 +7,34 @@ interface Measurement {
 }
 
 /**
- * A wrapper for {@link PerformanceObserver}.
+ * A wrapper around {@link PerformanceObserver}.
  *
  * @example
- * const observer = new Observer();
- * observer.observe();
+ * const o = new TimeObserver();
+ * o.observe();
  *
- * observer.mark("start_functionA");
+ * o.mark("start_functionA");
  * // run functionA
- * observer.mark("end_functionA");
- * observer.measure("Function A total.", "start_functionA", "end_functionA");
+ * o.mark("end_functionA");
  *
- * observer.disconnect();
- * observer.saveToDisk();
+ * o.mark("start_functionB");
+ * // run functionB
+ * o.mark("end_functionB");
+ *
+ * o.measure("Function A total.", "start_functionA", "end_functionA");
+ * o.measure("Function B total.", "start_functionB", "end_functionB");
+ *
+ * o.disconnect();
+ * o.saveToDisk(); // Saves a JSON file with the results.
  */
 export class TimeObserver {
   private measurements: Measurement[];
+  private isObserving: boolean;
   private observer: PerformanceObserver;
 
   constructor() {
     this.measurements = [];
+    this.isObserving = false;
 
     this.observer = new PerformanceObserver((items) => {
       const { name, duration } = items.getEntries()[0];
@@ -37,7 +44,23 @@ export class TimeObserver {
   }
 
   observe() {
-    this.observer.observe({ entryTypes: ["measure"] });
+    if (this.isObserving === false) {
+      this.observer.observe({ entryTypes: ["measure"] });
+
+      this.isObserving = true;
+    }
+  }
+
+  disconnect() {
+    if (this.isObserving === true) {
+      this.observer.disconnect();
+
+      this.isObserving = false;
+    }
+  }
+
+  mark(name: string) {
+    performance.mark(name);
   }
 
   measure(...args: string[]) {
@@ -50,17 +73,12 @@ export class TimeObserver {
     }
   }
 
-  mark(name: string) {
-    performance.mark(name);
-  }
-
-  disconnect() {
-    this.observer.disconnect();
-  }
-
   saveToDisk() {
-    const fileName = `measurements-${nanoid().substr(0, 5)}.json`;
+    const filename = "traces.txt";
+    unlink(filename, () => {});
 
-    writeFileSync(fileName, JSON.stringify(this.measurements, null, 2));
+    for (const { name, duration } of this.measurements) {
+      appendFileSync(filename, `${name} = ${duration} ms\n`);
+    }
   }
 }
