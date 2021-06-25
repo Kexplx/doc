@@ -1,0 +1,6 @@
+if ! command -v nodexd &> /dev/null
+then
+	echo "command does NOT exist"
+else
+	echo "does exist"
+fi
