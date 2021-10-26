@@ -1,0 +1,11 @@
+function readFileAsync(path) {
+  return new Promise((res, _) => {
+    fs.readFile(path, (_, data) => res(data));
+  });
+}
+
+function writeFileAsync(path, content) {
+  return new Promise((res, _) => {
+    fs.writeFile(path, content, res);
+  });
+}
