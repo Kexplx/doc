@@ -1,0 +1,5 @@
+1. ng add @briebug/jest-schematic
+2. npm i jest-preset-angular -D
+3. In "jest.config.ts", insert: 
+   "src/environments/environment": "<rootDir>/src/environments/environment"
+   as a new moduleNameMapper.
