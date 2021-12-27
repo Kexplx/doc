@@ -1,0 +1,1 @@
+https://github.com/Kexplx/scrapestar/blob/master/ui/src/app/http-proxy.ts
