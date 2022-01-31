@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .connected-status {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="connected-status">Connected ✔️</p>
+    <p class="progress"></p>
+    <p class="disconnected-status">Disconnected ❌</p>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <button onclick="sendData()">Send Data</button>
+
+    <script>
+      // Query UI Elements.
+      const connectedStatusEl = document.querySelector(".connected-status");
+      const progressEl = document.querySelector(".connected-status");
+      const disconnectedStatusEl = document.querySelector(
+        ".disconnected-status"
+      );
+
+      let socket;
+
+      function disconnect() {
+        socket.disconnect();
+      }
+
+      function connect() {
+        if (!socket) {
+          socket = io("ws://localhost:3000");
+          socket.on("connect", updateConnectionStatus);
+          socket.on("disconnect", updateConnectionStatus);
+        } else if (!socket.connected) {
+          socket.connect("ws://localhost:3000");
+        } else {
+          // We are already connected so we ignore.
+        }
+      }
+
+      function sendData() {
+        const a = 2;
+        const b = 3;
+
+        // socket.emit("data", { a, b }, (res) => {
+        //   // This callback will be "called" by
+        //   // the server with the result.
+        //   console.log(`Received ${res} from server.`);
+        // });
+
+        socket.emit("data", { a, b });
+        socket.on("progress", updateProgress);
+      }
+
+      function updateConnectionStatus() {
+        if (socket.connected) {
+          connectedStatusEl.style.display = "block";
+          disconnectedStatusEl.style.display = "none";
+        } else {
+          connectedStatusEl.style.display = "none";
+          disconnectedStatusEl.style.display = "block";
+        }
+      }
+
+      function updateProgress({ progress }) {
+        progressEl.innerText = progress;
+      }
+    </script>
+  </body>
+</html>
