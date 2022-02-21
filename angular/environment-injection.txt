@@ -1,13 +1,14 @@
-// src/environment.provider.ts
+// src/environment.provider.ts ------------------------------------
 
 import { InjectionToken, Provider } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-// For components to use as type.
-export type Environment = typeof environment;
-
-// For components to inject.
+// For components and services to inject.
 export const ENVIRONMENT_TOKEN = new InjectionToken<Environment>('Environment injection token');
+
+// For components and services to use as
+// the type of the injected environment object.
+export type Environment = typeof environment;
 
 // For AppModule to provide.
 export const environmentProvider: Provider = {
@@ -16,12 +17,15 @@ export const environmentProvider: Provider = {
 };
 
 
-// AppModule
+
+// AppModule ------------------------------------
 
 providers: [environmentProvider],
 
-// Components and services
+
+
+// Components and services ------------------------------------
 
 import { ENVIRONMENT_TOKEN, Environment } from './environment-provider';
 ...
-@Inject(ENVIRONMENT_TOKEN) private environment: Environment
+constructor(@Inject(ENVIRONMENT_TOKEN) private environment: Environment){}
