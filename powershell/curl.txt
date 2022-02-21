@@ -1,0 +1,1 @@
+Invoke-WebRequest 'http://localhost:3000' | Select-Object -Expand Content
