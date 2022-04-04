@@ -1,0 +1,53 @@
+class StudentService {
+  /**
+   * Use these objects to identify the errors that
+   * are thrown by this service's observable streams.
+   */
+  errorTypes = {
+    getStudentError: new Error(),
+    addStudentError: new Error(),
+  };
+
+  addStudent() {
+    // Errors should be caught, replaced and rethrown in this service.
+    // It's important to replace the error with our own custom error, so that
+    // the components can understand which error was caused by which request
+    // without having to catch and name errors by themselves which would violate SoC.
+    // -----------------------------------------------------------------------------
+    // 1. Build the regular request stream.
+    // 2. Append the `catchError` rxjs operator onto the 
+    //    stream which throws the `addStudentError` from above:
+    //       catchError(() => throwError(() => this.addStudentError));
+  }
+
+  getStudent() {
+    // Same as `addStudent`, but with a different error.
+  }
+}
+
+const studentService = new StudentService();
+
+studentService
+  .addStudent()
+  .pipe(switchMap(() => studentService.getStudent()))
+  .subscribe({
+    complete: () => {
+      // ...
+    },
+    error: (err: Error) => {
+      // The error was caused by either the first or the second request.
+      // We need to differentiate between the error types in order 
+      // to display actionable results to the user instead of a 
+      // generic "Ups, there was an error." message.
+      switch (err) {
+        case studentService.errorTypes.addStudentError:
+          // ...
+          break;
+        case studentService.errorTypes.getStudentError:
+          // ...
+          break;
+        default:
+          // Stream failed due to an unknown error.
+      }
+    },
+  });
