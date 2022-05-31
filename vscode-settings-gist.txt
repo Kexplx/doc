@@ -1,0 +1,6 @@
+1. Extension "settings-sync" installieren
+2. VSCode Fenster groß machen
+3. Shift + Alt + D
+4. "Download public Gist"
+
+6832365430da7e65fd6baa97ae983214
