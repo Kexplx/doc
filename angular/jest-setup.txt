@@ -1,5 +1,5 @@
 1. ng add @briebug/jest-schematic
-2. npm i jest-preset-angular -D
-3. In "jest.config.ts", insert: 
+2. npm i jest-preset-angular @testing-library/angular @testing-library/user-event -D
+3. In "jest.config.ts" add: 
    "src/environments/environment": "<rootDir>/src/environments/environment"
-   as a new moduleNameMapper.
+   to the moduleMapper array.
