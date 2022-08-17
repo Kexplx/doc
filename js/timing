@@ -1,0 +1,27 @@
+// functions to compare
+function a() {
+}
+
+function b() {
+
+}
+
+function c() {
+
+}
+
+function d() {
+
+}
+
+
+FUNCTIONS = [a, b, c, d];
+ITERATIONS = 10e6;
+
+for (const fn of FUNCTIONS) {
+  console.time(fn.name);
+  for (let i = 0; i < ITERATIONS; i++) {
+    fn();
+  }
+  console.timeEnd(fn.name);
+}
