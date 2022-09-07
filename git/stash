@@ -1,5 +1,5 @@
 git stash push -u -m "my-stash"
 git stash list
-git stash apply {index}
+git stash pop {index}
 git stash clear
 git stash drop {index}
