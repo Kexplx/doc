@@ -1,4 +1,4 @@
-git stash push --include-untracked -m "my-stash"
+git stash push -u -m "my-stash"
 git stash list
 git stash apply {index}
 git stash clear
