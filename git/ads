@@ -1,0 +1,11 @@
+## Config
+
+```bash
+git config --global core.pager cat
+git config --global init.defaultBranch main
+git config --global user.name "Oscar Rosner"
+git config --global user.email oscar.rosner@web.de
+
+git config --list --show-origin
+git config --global --unset user.name
+```
