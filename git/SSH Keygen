@@ -1,0 +1,12 @@
+Git Bash öffnen
+
+
+ssh-keygen -t ed25519 -C "My Key"
+
+
+Überall "ENTER" drücken
+
+Ins verzeichnis navigieren und <key-id>.pub öffnen und kopieren
+
+
+Im GitLab unter "SSH-Keys" eintragen
