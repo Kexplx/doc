@@ -1,6 +1,6 @@
 1. Start `PowerShell ISE` as administrator
 2. Run this Script (Add the ports you want to forward to `$ports`)
-3. Start your server on WSL
+3. Start your server on WSL (e.g. `ng serve --host=0.0.0.0 --disable-host-check --port 4300`)
 4. The server should be available on your network under the **IP Adress of the Windows Machine**.
 
 ```powershell
