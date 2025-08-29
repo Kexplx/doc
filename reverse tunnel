@@ -1,0 +1,2 @@
+`ng serve --host 0.0.0.0 --allowed-hosts=true`
+ssh -R 80:localhost:4200 ssh.localhost.run
